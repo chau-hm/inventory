@@ -30,6 +30,12 @@ node dist/cli/index.js health
 node dist/cli/index.js health --format json
 node dist/cli/index.js item validate --name "MacBook Pro" --category laptop
 node dist/cli/index.js item validate --name "AirPods Pro" --category audio --purchase-price-minor 189900 --currency HKD --format json
+node dist/cli/index.js item add --name "MacBook Pro" --category laptop --store /tmp/inventory-items.json
+node dist/cli/index.js item list --store /tmp/inventory-items.json
+node dist/cli/index.js item detail "MacBook" --store /tmp/inventory-items.json
+node dist/cli/index.js item edit "MacBook" --location Study --store /tmp/inventory-items.json
+node dist/cli/index.js item delete "MacBook" --store /tmp/inventory-items.json
+node dist/cli/index.js item restore "MacBook" --store /tmp/inventory-items.json
 node dist/cli/index.js warranty check --warranty-end 2026-12-31 --as-of 2026-05-30
 node dist/cli/index.js warranty check --purchase-date 2026-05-30 --warranty-months 24 --as-of 2026-05-30 --format json
 ```
@@ -39,6 +45,12 @@ node dist/cli/index.js warranty check --purchase-date 2026-05-30 --warranty-mont
 ```bash
 inventory item add "MacBook Pro" --category laptop --brand Apple --serial C02XXX
 inventory item validate --name "MacBook Pro" --category laptop
+inventory item add --name "MacBook Pro" --category laptop
+inventory item list
+inventory item detail itm_123
+inventory item edit itm_123 --location Study
+inventory item delete itm_123
+inventory item restore itm_123
 inventory warranty check --warranty-end 2029-05-30
 inventory reminder due --within 45d
 inventory document attach itm_123 ./receipt.jpg --kind receipt
