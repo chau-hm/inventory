@@ -27,3 +27,31 @@ Treat empty/whitespace-only store files as `{ items: [] }`; add adapter test cov
 - Related Files: src/adapters/json-file-item-repository.ts
 
 ---
+
+## [ERR-20260530-002] drizzle_sqlite_transaction_callback
+
+**Logged**: 2026-05-30T23:48:00+08:00
+**Priority**: low
+**Status**: fixed
+**Area**: backend
+
+### Summary
+SQLite repository initially treated Drizzle's `db.transaction(callback)` result as a callable function.
+
+### Error
+```
+TypeError: this.db.transaction(...) is not a function
+```
+
+### Context
+- Adapter test attempted `SqliteItemRepository.saveAll`.
+- In this Drizzle SQLite API, passing a callback executes the transaction directly.
+
+### Suggested Fix
+Call `db.transaction((tx) => { ... })` without appending `()`.
+
+### Metadata
+- Reproducible: yes
+- Related Files: src/adapters/sqlite/item-repository.ts
+
+---

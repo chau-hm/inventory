@@ -2,6 +2,8 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { Command } from "commander";
 import { JsonFileItemRepository } from "../adapters/json-file-item-repository.js";
+import { openInventoryDatabase } from "../adapters/sqlite/database.js";
+import { SqliteItemRepository } from "../adapters/sqlite/item-repository.js";
 import { ItemService, type ItemPatch, type TargetResolutionError } from "../application/items.js";
 import { validateItemDraft } from "../domain/item.js";
 import { calculateWarrantyState } from "../domain/warranty.js";
@@ -36,6 +38,7 @@ export function createProgram(): Command {
     .description("Add an item to the JSON item store")
     .requiredOption("--name <name>", "Item name")
     .requiredOption("--category <category>", "Item category")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--brand <brand>", "Brand")
     .option("--model <model>", "Model")
@@ -53,7 +56,7 @@ export function createProgram(): Command {
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (options: ItemCommandOptions) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const saved = await service.add(itemInputFromOptions(options));
         if (options.format === "json") {
           return { ok: true, item: saved };
@@ -64,13 +67,14 @@ export function createProgram(): Command {
 
   item
     .command("list")
-    .description("List items from the JSON item store")
+    .description("List items from the item store")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--status <status>", "Status filter, or all", "active")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (options: { store: string; status: string; format: string }) => {
+    .action(async (options: ItemStoreOptions & { status: string; format: string }) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const items = await service.list({ status: options.status as never });
         if (options.format === "json") {
           return { ok: true, items };
@@ -85,11 +89,12 @@ export function createProgram(): Command {
     .command("detail")
     .description("Show one item by exact ID or unambiguous text target")
     .argument("<target>", "Item ID or search text")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (target: string, options: { store: string; format: string }) => {
+    .action(async (target: string, options: ItemStoreOptions & { format: string }) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const saved = await service.detail(target);
         if (options.format === "json") {
           return { ok: true, item: saved };
@@ -102,6 +107,7 @@ export function createProgram(): Command {
     .command("edit")
     .description("Edit one item by exact ID or unambiguous text target")
     .argument("<target>", "Item ID or search text")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--name <name>", "Item name")
     .option("--category <category>", "Item category")
@@ -122,7 +128,7 @@ export function createProgram(): Command {
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (target: string, options: ItemCommandOptions) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const saved = await service.edit(target, itemPatchFromOptions(options));
         if (options.format === "json") {
           return { ok: true, item: saved };
@@ -135,11 +141,12 @@ export function createProgram(): Command {
     .command("delete")
     .description("Soft delete one item by exact ID or unambiguous text target")
     .argument("<target>", "Item ID or search text")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (target: string, options: { store: string; format: string }) => {
+    .action(async (target: string, options: ItemStoreOptions & { format: string }) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const saved = await service.delete(target);
         if (options.format === "json") {
           return { ok: true, item: saved };
@@ -152,11 +159,12 @@ export function createProgram(): Command {
     .command("restore")
     .description("Restore one deleted item by exact ID or unambiguous text target")
     .argument("<target>", "Item ID or search text")
+    .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (target: string, options: { store: string; format: string }) => {
+    .action(async (target: string, options: ItemStoreOptions & { format: string }) => {
       await runItemAction(options.format, async () => {
-        const service = createItemService(options.store);
+        const service = createItemService(options);
         const saved = await service.restore(target);
         if (options.format === "json") {
           return { ok: true, item: saved };
@@ -288,6 +296,7 @@ function currentIsoDate(): string {
 }
 
 interface ItemCommandOptions {
+  db?: string;
   store: string;
   name?: string;
   category?: string;
@@ -308,8 +317,16 @@ interface ItemCommandOptions {
   format: string;
 }
 
-function createItemService(storePath: string): ItemService {
-  return new ItemService({ repository: new JsonFileItemRepository(storePath) });
+interface ItemStoreOptions {
+  db?: string;
+  store: string;
+}
+
+function createItemService(options: ItemStoreOptions): ItemService {
+  if (options.db !== undefined) {
+    return new ItemService({ repository: new SqliteItemRepository(openInventoryDatabase(options.db)) });
+  }
+  return new ItemService({ repository: new JsonFileItemRepository(options.store) });
 }
 
 function itemInputFromOptions(options: ItemCommandOptions): Record<string, unknown> {

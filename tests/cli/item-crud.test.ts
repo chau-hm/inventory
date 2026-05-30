@@ -7,11 +7,13 @@ import { createProgram } from "../../src/cli/program.js";
 describe("item CRUD commands", () => {
   let tempDir: string;
   let storePath: string;
+  let dbPath: string;
   const output: string[] = [];
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), "inventory-cli-"));
     storePath = join(tempDir, "items.json");
+    dbPath = join(tempDir, "inventory.sqlite");
     vi.spyOn(console, "log").mockImplementation((message?: unknown) => {
       output.push(String(message));
     });
@@ -68,8 +70,18 @@ describe("item CRUD commands", () => {
     expect(stored.items.map((item) => item.status)).toEqual(["active", "active"]);
   });
 
+  it("runs item commands against SQLite when --db is supplied", async () => {
+    await run("item", "add", "--db", dbPath, "--name", "Nintendo Switch", "--category", "console", "--format", "json");
+    const added = JSON.parse(output.pop() ?? "{}") as { item: { id: string } };
+
+    await run("item", "list", "--db", dbPath, "--format", "json");
+
+    expect(JSON.parse(output.pop() ?? "{}")).toMatchObject({
+      items: [{ id: added.item.id, name: "Nintendo Switch", category: "console", status: "active" }]
+    });
+  });
+
   async function run(...args: string[]): Promise<void> {
     await createProgram().parseAsync(["node", "inventory", ...args], { from: "node" });
   }
 });
-

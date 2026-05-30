@@ -11,14 +11,17 @@ Agent-native personal inventory control app. The MVP is a TypeScript CLI intende
 
 ## Current Stage
 
-Stage 0 skeleton is intentionally small:
+The current implementation has the first item-management path in place:
 
 - TypeScript project setup.
 - Commander CLI shell.
 - Vitest test setup.
 - Project rules in `AGENTS.md`.
+- Warranty state calculation.
+- Item validation and item CRUD.
+- SQLite item repository, with JSON-file storage still available as an interim fallback.
 
-Persistence, item CRUD, warranty logic, document ingest, and reminders are added in later spec slices.
+Document ingest, service history, reminders, and evidence export are added in later spec slices.
 
 ## Commands
 
@@ -36,6 +39,8 @@ node dist/cli/index.js item detail "MacBook" --store /tmp/inventory-items.json
 node dist/cli/index.js item edit "MacBook" --location Study --store /tmp/inventory-items.json
 node dist/cli/index.js item delete "MacBook" --store /tmp/inventory-items.json
 node dist/cli/index.js item restore "MacBook" --store /tmp/inventory-items.json
+node dist/cli/index.js item add --name "Nintendo Switch" --category console --db /tmp/inventory.sqlite
+node dist/cli/index.js item list --db /tmp/inventory.sqlite --format json
 node dist/cli/index.js warranty check --warranty-end 2026-12-31 --as-of 2026-05-30
 node dist/cli/index.js warranty check --purchase-date 2026-05-30 --warranty-months 24 --as-of 2026-05-30 --format json
 ```
