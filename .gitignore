@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+.DS_Store
+*.log
+
+# Local runtime data stays outside git, but keep guardrails here too.
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+attachments/
+exports/
