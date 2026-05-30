@@ -28,6 +28,35 @@ Treat empty/whitespace-only store files as `{ items: [] }`; add adapter test cov
 
 ---
 
+## [ERR-20260531-001] skill_validation_python_yaml_assumption
+
+**Logged**: 2026-05-31T00:44:00+08:00
+**Priority**: low
+**Status**: fixed
+**Area**: tooling
+
+### Summary
+Skill frontmatter validation initially assumed `python` and PyYAML were available on this machine.
+
+### Error
+```
+zsh:1: command not found: python
+yaml invalid: No module named 'yaml'
+```
+
+### Context
+- While adding the inventory OpenClaw skill wrapper, validation used the generic skill-creator snippet.
+- This local environment has `python3`, but not `python`, and PyYAML is not installed.
+
+### Suggested Fix
+Use a minimal frontmatter parser or a dependency-free Node/Python script for local validation.
+
+### Metadata
+- Reproducible: yes
+- Related Files: /Users/openclaw/.openclaw/workspace/skills/inventory/SKILL.md
+
+---
+
 ## [ERR-20260530-002] drizzle_sqlite_transaction_callback
 
 **Logged**: 2026-05-30T23:48:00+08:00
