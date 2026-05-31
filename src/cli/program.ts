@@ -12,6 +12,14 @@ import { exportEvidencePack, formatEvidencePackForTelegram } from "../applicatio
 import { ItemService, type ItemPatch, type TargetResolutionError } from "../application/items.js";
 import { calculateDueReminders } from "../application/reminders.js";
 import { ServiceEventService } from "../application/service-events.js";
+import {
+  parseChatItem,
+  parseChatItemIntent,
+  parseChatItemMutationIntent,
+  type ChatItemIntent,
+  type ChatItemDraft,
+  type ChatItemParseResult
+} from "../domain/chat-intake.js";
 import { validateItemDraft } from "../domain/item.js";
 import { calculateWarrantyState } from "../domain/warranty.js";
 
@@ -36,6 +44,92 @@ export function createProgram(): Command {
       }
 
       console.log(`inventory-control ${cliVersion} ok`);
+    });
+
+  const chat = program.command("chat").description("Natural-language chat intake commands");
+
+  chat
+    .command("parse")
+    .description("Parse natural-language item text into a non-mutating add draft")
+    .argument("<text...>", "Natural-language item text")
+    .option("--format <format>", "Output format: text or json", "text")
+    .action((textParts: string[], options: { format: string }) => {
+      const result = parseChatItem(textParts.join(" "));
+      if (options.format === "json") {
+        console.log(JSON.stringify(result));
+        return;
+      }
+      console.log(formatChatParseText(result));
+    });
+
+  chat
+    .command("items")
+    .description("Parse natural-language list/search text and return matching saved items")
+    .argument("<text...>", "Natural-language list/search text")
+    .option("--db <path>", "SQLite inventory database path")
+    .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--status <status>", "Status filter override: active, deleted, or all")
+    .option("--format <format>", "Output format: text or json", "text")
+    .action(async (textParts: string[], options: ItemStoreOptions & { status?: string; format: string }) => {
+      await runItemAction(options.format, async () => {
+        const intent = parseChatItemIntent(textParts.join(" "));
+        const status = (options.status ?? intent.status) as never;
+        const service = createItemService(options);
+        const items = intent.kind === "item_list"
+          ? await service.list({ status })
+          : await service.search(intent.query, { status });
+        const result = { ...intent, status, items };
+        if (options.format === "json") {
+          return result;
+        }
+        return formatChatItemsText(intent, items);
+      });
+    });
+
+  chat
+    .command("mutate")
+    .description("Parse natural-language edit/delete/restore text and mutate only one unambiguous item")
+    .argument("<text...>", "Natural-language mutation text")
+    .option("--db <path>", "SQLite inventory database path")
+    .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--format <format>", "Output format: text or json", "text")
+    .action(async (textParts: string[], options: ItemStoreOptions & { format: string }) => {
+      await runItemAction(options.format, async () => {
+        const intent = parseChatItemMutationIntent(textParts.join(" "));
+        if (intent.kind === "needs_clarification") {
+          if (options.format === "json") {
+            return intent;
+          }
+          return `Need clarification: ${intent.missing.join(", ")}`;
+        }
+
+        const service = createItemService(options);
+        const item = await applyChatMutation(service, intent);
+        const result = { kind: "updated_item" as const, action: intent.action, item };
+        if (options.format === "json") {
+          return result;
+        }
+        return `Item ${intent.action}: ${item.id} ${item.name}`;
+      });
+    });
+
+  chat
+    .command("confirm")
+    .description("Confirm a parsed item draft JSON and save it")
+    .requiredOption("--draft-json <json>", "Draft JSON from chat parse")
+    .option("--db <path>", "SQLite inventory database path")
+    .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--format <format>", "Output format: text or json", "text")
+    .action(async (options: ItemStoreOptions & { draftJson: string; format: string }) => {
+      await runItemAction(options.format, async () => {
+        const draft = parseChatDraftJson(options.draftJson);
+        const saved = await createItemService(options).add(chatDraftToItemInput(draft));
+        const result = { kind: "confirmed_item" as const, item: saved };
+        if (options.format === "json") {
+          return result;
+        }
+        return `Item confirmed: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
+      });
     });
 
   const item = program.command("item").description("Item-related commands");
@@ -512,6 +606,95 @@ export function createProgram(): Command {
 
 function currentIsoDate(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+function formatChatParseText(result: ChatItemParseResult): string {
+  if (result.kind === "needs_clarification") {
+    return `Need clarification: ${result.missing.join(", ")}`;
+  }
+
+  const draft = result.draft;
+  return [
+    "Draft item (confirm before saving)",
+    `Name: ${draft.name}`,
+    `Category: ${draft.category}`,
+    draft.brand === undefined ? undefined : `Brand: ${draft.brand}`,
+    draft.location === undefined ? undefined : `Location: ${draft.location}`,
+    draft.purchaseDate === undefined ? undefined : `Purchase date: ${draft.purchaseDate}`,
+    draft.warrantyEnd === undefined ? undefined : `Warranty end: ${draft.warrantyEnd}`,
+    `CLI: ${draft.commandArgs.map(quoteArg).join(" ")}`
+  ]
+    .filter((line): line is string => line !== undefined)
+    .join("\n");
+}
+
+function formatChatItemsText(intent: ChatItemIntent, items: Array<{ id: string; name: string; category: string; status: string }>): string {
+  if (items.length === 0) {
+    return intent.kind === "item_list" ? "No items found." : "No matching items found.";
+  }
+  return items.map((item) => `${item.id} ${item.name} (${item.category}, ${item.status})`).join("\n");
+}
+
+async function applyChatMutation(service: ItemService, intent: Exclude<ReturnType<typeof parseChatItemMutationIntent>, { kind: "needs_clarification" }>) {
+  if (intent.action === "delete") {
+    return service.delete(intent.target);
+  }
+  if (intent.action === "restore") {
+    return service.restore(intent.target);
+  }
+  if ("patch" in intent) {
+    return service.edit(intent.target, intent.patch);
+  }
+  throw new Error("Chat mutation patch missing.");
+}
+
+function parseChatDraftJson(value: string): ChatItemDraft {
+  const parsed = JSON.parse(value) as unknown;
+  const candidate = isDraftParseResult(parsed) ? parsed.draft : parsed;
+  if (!isChatItemDraft(candidate)) {
+    throw new Error("Draft JSON must be a chat item draft or chat parse draft result.");
+  }
+  return candidate;
+}
+
+function isDraftParseResult(value: unknown): value is { kind: "draft"; draft: unknown } {
+  return typeof value === "object" && value !== null && "kind" in value && value.kind === "draft" && "draft" in value;
+}
+
+function isChatItemDraft(value: unknown): value is ChatItemDraft {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "name" in value &&
+    typeof value.name === "string" &&
+    "category" in value &&
+    typeof value.category === "string" &&
+    "needsConfirmation" in value &&
+    value.needsConfirmation === true
+  );
+}
+
+function chatDraftToItemInput(draft: ChatItemDraft): Record<string, unknown> {
+  return {
+    name: draft.name,
+    category: draft.category,
+    brand: draft.brand,
+    model: draft.model,
+    serialNumber: draft.serialNumber,
+    location: draft.location,
+    owner: draft.owner,
+    purchaseDate: draft.purchaseDate,
+    purchasePriceMinor: draft.purchasePriceMinor,
+    currency: draft.currency,
+    merchant: draft.merchant,
+    warrantyEnd: draft.warrantyEnd,
+    warrantyMonths: draft.warrantyMonths,
+    notes: draft.notes
+  };
+}
+
+function quoteArg(value: string): string {
+  return /^[A-Za-z0-9_./:-]+$/.test(value) ? value : JSON.stringify(value);
 }
 
 interface ItemCommandOptions {

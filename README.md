@@ -36,6 +36,10 @@ npm test
 ./scripts/preflight.sh
 node dist/cli/index.js health
 node dist/cli/index.js health --format json
+node dist/cli/index.js chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房" --format json
+node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --format json
+node dist/cli/index.js chat items "搵 MacBook" --format json
+node dist/cli/index.js chat mutate "edit MacBook 改做 location: 書房" --format json
 node dist/cli/index.js item validate --name "MacBook Pro" --category laptop
 node dist/cli/index.js item validate --name "AirPods Pro" --category audio --purchase-price-minor 189900 --currency HKD --format json
 node dist/cli/index.js item add --name "MacBook Pro" --category laptop --store /tmp/inventory-items.json
@@ -71,6 +75,10 @@ It translates `/inventory` or natural-language inventory requests into this repo
 
 ```bash
 inventory item add "MacBook Pro" --category laptop --brand Apple --serial C02XXX
+inventory chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房"
+inventory chat confirm --draft-json "$draft_json"
+inventory chat items "搵 MacBook"
+inventory chat mutate "delete 舊嗰部 iPhone"
 inventory item validate --name "MacBook Pro" --category laptop
 inventory item add --name "MacBook Pro" --category laptop
 inventory item list
@@ -88,7 +96,7 @@ inventory export evidence-pack --item itm_123 --output ./macbook-evidence
 
 ## Docs
 
-Spec slices live in `docs/specs/`, including local backup and restore notes in `docs/specs/local-backup-restore.md`.
+Spec slices live in `docs/specs/`, including chat intake in `docs/specs/chat-intake.md` and local backup and restore notes in `docs/specs/local-backup-restore.md`.
 
 Vault planning docs live in:
 

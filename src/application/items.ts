@@ -65,6 +65,11 @@ export class ItemService {
     return items.filter((item) => item.status === status);
   }
 
+  async search(query: string, options: ItemListOptions = {}): Promise<SavedItem[]> {
+    const items = await this.list(options);
+    return items.filter((item) => itemMatchesQuery(item, query));
+  }
+
   async detail(target: string): Promise<SavedItem> {
     const items = await this.repository.list();
     return resolveSingleTarget(items, target, "all");
@@ -176,4 +181,3 @@ function targetError(code: TargetResolutionError["code"], candidates: SavedItem[
   error.candidates = candidates;
   return error;
 }
-

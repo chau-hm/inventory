@@ -84,5 +84,13 @@ describe("ItemService", () => {
     });
     expect(repository.items.map((item) => item.status)).toEqual(["active", "active"]);
   });
-});
 
+  it("searches active items by item fields", async () => {
+    const { service } = createService();
+    const headphones = await service.add({ name: "Sony Headphones", category: "audio", serialNumber: "A1" });
+    await service.add({ name: "Nintendo Switch", category: "console", serialNumber: "B2" });
+
+    await expect(service.search("sony")).resolves.toEqual([headphones]);
+    await expect(service.search("A1")).resolves.toEqual([headphones]);
+  });
+});
