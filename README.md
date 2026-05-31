@@ -87,6 +87,8 @@ inventory export evidence-pack --item itm_123 --output ./macbook-evidence
 
 ## Docs
 
+Spec slices live in `docs/specs/`, including local backup and restore notes in `docs/specs/local-backup-restore.md`.
+
 Vault planning docs live in:
 
 ```text

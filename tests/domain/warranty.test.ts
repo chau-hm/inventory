@@ -85,6 +85,37 @@ describe("calculateWarrantyState", () => {
     expect(result.derivedEndDate).toBe("2028-05-30");
     expect(result.warnings[0]?.code).toBe("WARRANTY_END_CONFLICT");
   });
+
+  it("treats the expiring-soon boundary as inclusive", () => {
+    const result = calculateWarrantyState({
+      warrantyEndDate: "2026-07-14",
+      referenceDate: "2026-05-30",
+      expiringSoonDays: 45
+    });
+
+    expect(result.state).toBe("expiring_soon");
+    expect(result.daysUntilEnd).toBe(45);
+  });
+
+  it("keeps the day of month when adding across a leap year February", () => {
+    const result = calculateWarrantyState({
+      purchaseDate: "2023-02-28",
+      warrantyMonths: 12,
+      referenceDate: "2023-03-01"
+    });
+
+    expect(result.derivedEndDate).toBe("2024-02-28");
+    expect(result.state).toBe("active");
+  });
+
+  it("rejects non-calendar dates before calculating state", () => {
+    expect(() =>
+      calculateWarrantyState({
+        warrantyEndDate: "2026-02-29",
+        referenceDate: "2026-01-01"
+      })
+    ).toThrow("Invalid date: 2026-02-29");
+  });
 });
 
 describe("addCalendarMonths", () => {
@@ -95,5 +126,8 @@ describe("addCalendarMonths", () => {
   it("handles leap-day anniversaries deterministically", () => {
     expect(addCalendarMonths("2024-02-29", 12)).toBe("2025-02-28");
   });
-});
 
+  it("allows a zero-month warranty to end on the purchase date", () => {
+    expect(addCalendarMonths("2026-05-30", 0)).toBe("2026-05-30");
+  });
+});

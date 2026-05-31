@@ -653,7 +653,7 @@ async function runItemAction(format: string, action: () => Promise<string | obje
     console.log(typeof result === "string" ? result : JSON.stringify(result));
   } catch (error) {
     const payload = itemErrorPayload(error);
-    process.exitCode = 1;
+    process.exitCode = payload.error.code === "AMBIGUOUS_ITEM" ? 2 : 1;
     if (format === "json") {
       console.log(JSON.stringify(payload));
       return;

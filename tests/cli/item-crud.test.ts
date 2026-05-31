@@ -65,9 +65,30 @@ describe("item CRUD commands", () => {
         candidates: [{ name: "Sony Headphones" }, { name: "Sony Speaker" }]
       }
     });
+    expect(process.exitCode).toBe(2);
 
     const stored = JSON.parse(await readFile(storePath, "utf8")) as { items: Array<{ status: string }> };
     expect(stored.items.map((item) => item.status)).toEqual(["active", "active"]);
+  });
+
+  it("returns ambiguous edit candidates and does not mutate", async () => {
+    await run("item", "add", "--store", storePath, "--name", "Sony Headphones", "--category", "audio");
+    await run("item", "add", "--store", storePath, "--name", "Sony Speaker", "--category", "audio");
+
+    await run("item", "edit", "Sony", "--store", storePath, "--location", "Study", "--format", "json");
+
+    const result = JSON.parse(output.pop() ?? "{}");
+    expect(result).toMatchObject({
+      ok: false,
+      error: {
+        code: "AMBIGUOUS_ITEM",
+        candidates: [{ name: "Sony Headphones" }, { name: "Sony Speaker" }]
+      }
+    });
+    expect(process.exitCode).toBe(2);
+
+    const stored = JSON.parse(await readFile(storePath, "utf8")) as { items: Array<{ location?: string }> };
+    expect(stored.items.map((item) => item.location)).toEqual([undefined, undefined]);
   });
 
   it("runs item commands against SQLite when --db is supplied", async () => {
