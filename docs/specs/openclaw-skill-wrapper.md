@@ -6,7 +6,13 @@ Expose the inventory CLI as a local OpenClaw skill so Telegram/OpenClaw requests
 
 ## Skill Location
 
-The wrapper lives outside the repo:
+The canonical wrapper lives in this repo:
+
+```text
+skills/inventory/SKILL.md
+```
+
+The deployed OpenClaw copy is synced to:
 
 ```text
 /Users/openclaw/.openclaw/workspace/skills/inventory/SKILL.md
@@ -25,5 +31,6 @@ The wrapper lives outside the repo:
 ## Acceptance
 
 - Skill has valid YAML frontmatter.
+- Repo contains the canonical skill file at `skills/inventory/SKILL.md`.
 - Skill documents common item, document, service-event, reminder, export, and preflight commands.
 - Vault TODO Phase 6 marks the wrapper complete.
