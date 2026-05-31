@@ -30,6 +30,7 @@ Apple Vision OCR implementation and push notifications are added in later spec s
 
 ```bash
 npm install
+npm run ci
 npm run build
 npm test
 ./scripts/preflight.sh

@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-npm run build
-npm run typecheck
-npm test
-
+npm run ci
