@@ -2,31 +2,137 @@
 
 Agent-native personal inventory control app. The MVP is a TypeScript CLI intended for OpenClaw / Telegram workflows, with deterministic core logic for warranty-heavy owned items.
 
-## Direction
+## Purpose
 
 - Track personal physical items with warranty, receipt, serial number, location, service history, reminders, and evidence export.
 - Keep data local-first. Runtime data and attachments stay outside git.
 - Use chat/agent as the primary user surface, but keep the CLI non-interactive and stable.
 - Keep domain logic independent from OCR, LLM, Telegram, and provider adapters.
 
-## Current Stage
+## Features
 
-The current implementation has the first item-management path in place:
-
-- TypeScript project setup.
-- Commander CLI shell.
-- Vitest test setup.
-- Project rules in `AGENTS.md`.
-- Warranty state calculation.
-- Item validation and item CRUD.
-- SQLite item repository, with JSON-file storage still available as an interim fallback.
-- Local document attachment metadata and OCR ingest draft contract.
+- Item validation and CRUD with soft delete/restore.
+- Warranty state calculation from warranty end dates or purchase date plus warranty duration.
+- SQLite item storage, with JSON-file storage still available for temporary/test runs.
+- Local receipt/warranty document attachments.
+- OCR ingest draft contract. Apple Vision OCR integration is planned later.
 - Service timeline events and deterministic due reminder output.
-- Evidence pack export and an OpenClaw skill wrapper for Telegram/OpenClaw workflows.
+- Evidence-pack export for warranty claims or resale handoff.
+- OpenClaw skill wrapper for Telegram `/inventory` and natural-language chat workflows.
 
-Apple Vision OCR implementation and push notifications are added in later spec slices.
+## Telegram Slash Command Examples
 
-## Commands
+Use `/inventory` in Telegram or any OpenClaw chat surface. Write the request naturally; the agent translates it into deterministic local CLI calls, confirms risky or ambiguous changes, and replies with stable IDs.
+
+General behavior:
+
+- Exact IDs such as `itm_...`, `doc_...`, and `sev_...` can be acted on directly.
+- Fuzzy targets such as "MacBook" or "IronWolf" are resolved first. If more than one item matches, the app must ask which ID to use before mutating.
+- Add-item drafts are non-mutating until confirmed, unless the request explicitly says to save or入庫 and the parsed draft is unambiguous.
+- Receipt/warranty OCR ingest is currently a draft contract; real Apple Vision OCR is planned for a later slice.
+
+### Item Intake
+
+```text
+/inventory 記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房
+/inventory 幫我入庫 Seagate IronWolf Pro 8TB HDD，型號 ST8000NT001，S/N WWZBF1AD，2026-05-30 喺 SE Computer 買，HKD 2499，保養 5 年
+/inventory 記低新買嗰個 Apple 嘢，放客廳
+```
+
+Expected behavior:
+
+- The first example returns an item draft and waits for confirmation.
+- The second example parses and saves if unambiguous, then replies with the new `itm_...` ID.
+- The third example asks for missing item name/category instead of guessing.
+
+### Item Lookup
+
+```text
+/inventory 睇下而家 inventory 有咩
+/inventory 搵 IronWolf
+/inventory 睇 itm_18917d3d5560 詳情
+```
+
+Expected behavior:
+
+- List/search requests are read-only.
+- Detail requests include important warranty, serial, location, merchant, and document/service summary fields when available.
+
+### Item Mutation
+
+```text
+/inventory 將 IronWolf 8TB 位置改做 NAS Bay 2，notes 加「用嚟做 Time Machine」
+/inventory 將 MacBook 改做放公司
+/inventory 刪咗 itm_123456789abc
+/inventory 還原頭先刪咗嗰隻 IronWolf
+```
+
+Expected behavior:
+
+- Exact ID delete/restore/edit can run directly.
+- Fuzzy edit/delete/restore must only mutate if one saved item resolves.
+- Ambiguous targets reply with candidates and ask for the item ID.
+- Delete is soft delete; reply with the deleted item ID so it can be restored.
+
+### Validation And Warranty
+
+```text
+/inventory 幫我睇下呢個 item 資料夠唔夠：name AirPods Pro，category audio，HKD 1899，保養到 2027-06-01
+/inventory 幫我計 2026-05-30 買、保養 24 個月，到今日仲有冇保？
+```
+
+Expected behavior:
+
+- Validation checks a draft without saving.
+- Warranty checks return the calculated warranty state and end date.
+
+### Documents
+
+```text
+/inventory 呢張係 itm_18917d3d5560 嘅單，幫我掛上去
+/inventory 呢張係 IronWolf 張保養紙
+/inventory 睇下 IronWolf 有咩文件
+/inventory 刪咗 doc_abcd1234 呢份文件
+/inventory 試下由呢張保養紙抽資料，先出 draft
+```
+
+Expected behavior:
+
+- Attached Telegram files should be saved as local inventory attachments and linked to `doc_...`.
+- If the item target is fuzzy, resolve the item first.
+- Document list/delete replies include document IDs.
+- OCR ingest creates a draft and clearly states that the current provider is still the noop draft provider.
+
+### Service Events And Reminders
+
+```text
+/inventory 幫 IronWolf 加一條 maintenance：2026-06-05 檢查 SMART，due 2026-06-05
+/inventory 睇 IronWolf 維修/保養 timeline
+/inventory 刪咗 sev_abc123 呢條 maintenance
+/inventory 未來 45 日有咩保養或者維修要跟？
+```
+
+Expected behavior:
+
+- Service-event saves return `sev_...` IDs.
+- Timeline/list operations are read-only.
+- Reminder output combines due service events and warranty-related reminders.
+
+### Evidence Export And Health
+
+```text
+/inventory 幫 IronWolf 出一份 warranty claim evidence pack
+/inventory inventory app 係咪正常？
+```
+
+Expected behavior:
+
+- Evidence exports reply with the output folder and manifest path.
+- Health check confirms whether the local CLI is reachable.
+
+## CLI Commands
+
+These commands are the local deterministic backend used by the OpenClaw skill. Keep them non-interactive and stable so Telegram slash-command routing can safely call them.
 
 ```bash
 npm install
@@ -34,6 +140,9 @@ npm run ci
 npm run build
 npm test
 ./scripts/preflight.sh
+```
+
+```bash
 node dist/cli/index.js health
 node dist/cli/index.js health --format json
 node dist/cli/index.js chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房" --format json
@@ -61,6 +170,17 @@ node dist/cli/index.js warranty check --warranty-end 2026-12-31 --as-of 2026-05-
 node dist/cli/index.js warranty check --purchase-date 2026-05-30 --warranty-months 24 --as-of 2026-05-30 --format json
 ```
 
+## Data Storage
+
+Default local runtime paths:
+
+- Items JSON fallback: `~/.inventory-control/items.json`
+- Documents metadata: `~/.inventory-control/documents.json`
+- Attachments: `~/.inventory-control/attachments`
+- Service events: `~/.inventory-control/service-events.json`
+
+SQLite item storage is enabled per command with `--db /path/to/inventory.sqlite`. Keep runtime data, attachments, and evidence exports out of git.
+
 ## OpenClaw Skill
 
 The local OpenClaw wrapper lives at:
@@ -70,29 +190,6 @@ The local OpenClaw wrapper lives at:
 ```
 
 It translates `/inventory` or natural-language inventory requests into this repo's CLI, prefers JSON for internal reads, and keeps saved IDs visible for future edit/delete/restore flows.
-
-## Planned CLI Shape
-
-```bash
-inventory item add "MacBook Pro" --category laptop --brand Apple --serial C02XXX
-inventory chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房"
-inventory chat confirm --draft-json "$draft_json"
-inventory chat items "搵 MacBook"
-inventory chat mutate "delete 舊嗰部 iPhone"
-inventory item validate --name "MacBook Pro" --category laptop
-inventory item add --name "MacBook Pro" --category laptop
-inventory item list
-inventory item detail itm_123
-inventory item edit itm_123 --location Study
-inventory item delete itm_123
-inventory item restore itm_123
-inventory warranty check --warranty-end 2029-05-30
-inventory reminder due --within 45d
-inventory service-event add --item itm_123 --kind maintenance --title "Clean keyboard" --due-on 2029-04-15
-inventory document attach --item itm_123 --path ./receipt.jpg --kind receipt
-inventory document ingest-draft --item itm_123 --path ./receipt.jpg --kind receipt
-inventory export evidence-pack --item itm_123 --output ./macbook-evidence
-```
 
 ## Docs
 
