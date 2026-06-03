@@ -1,0 +1,443 @@
+{
+  "name": "inventory-control",
+  "description": "Agent-native local-first personal inventory CLI for warranty-aware item tracking, document attachments, service events, reminders, and evidence export workflows.",
+  "languages": [
+    "json",
+    "markdown",
+    "shell",
+    "typescript",
+    "unknown",
+    "yaml"
+  ],
+  "frameworks": [
+    "GitHub Actions",
+    "Vitest"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "language": "yaml",
+      "sizeLines": 34,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".learnings/ERRORS.md",
+      "language": "markdown",
+      "sizeLines": 86,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 62,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/chat-intake.md",
+      "language": "markdown",
+      "sizeLines": 50,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/ci-workflow.md",
+      "language": "markdown",
+      "sizeLines": 35,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/document-attachment-ocr-draft.md",
+      "language": "markdown",
+      "sizeLines": 29,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/evidence-pack-export.md",
+      "language": "markdown",
+      "sizeLines": 28,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/item-domain.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/item-json-crud.md",
+      "language": "markdown",
+      "sizeLines": 46,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/item-sqlite-persistence.md",
+      "language": "markdown",
+      "sizeLines": 28,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/local-backup-restore.md",
+      "language": "markdown",
+      "sizeLines": 36,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/openclaw-skill-wrapper.md",
+      "language": "markdown",
+      "sizeLines": 36,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/service-events-reminders.md",
+      "language": "markdown",
+      "sizeLines": 29,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/specs/warranty-state.md",
+      "language": "markdown",
+      "sizeLines": 60,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 207,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/preflight.sh",
+      "language": "shell",
+      "sizeLines": 4,
+      "fileCategory": "script"
+    },
+    {
+      "path": "skills/inventory/SKILL.md",
+      "language": "markdown",
+      "sizeLines": 67,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "src/adapters/documents/json-file-document-repository.ts",
+      "language": "typescript",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/documents/local-attachment-storage.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/json-file-item-repository.ts",
+      "language": "typescript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/json-file-service-event-repository.ts",
+      "language": "typescript",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/sqlite/database.ts",
+      "language": "typescript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/sqlite/item-repository.ts",
+      "language": "typescript",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/adapters/sqlite/schema.ts",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/application/documents.ts",
+      "language": "typescript",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/application/exporters/evidence-pack.ts",
+      "language": "typescript",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/application/items.ts",
+      "language": "typescript",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/application/reminders.ts",
+      "language": "typescript",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/application/service-events.ts",
+      "language": "typescript",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/cli/index.ts",
+      "language": "typescript",
+      "sizeLines": 4,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/cli/program.ts",
+      "language": "typescript",
+      "sizeLines": 1238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/chat-intake.ts",
+      "language": "typescript",
+      "sizeLines": 449,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/document.ts",
+      "language": "typescript",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/item.ts",
+      "language": "typescript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/service-event.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/warranty.ts",
+      "language": "typescript",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/adapters/documents/local-attachment-storage.test.ts",
+      "language": "typescript",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/adapters/json-file-item-repository.test.ts",
+      "language": "typescript",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/adapters/sqlite/item-repository.test.ts",
+      "language": "typescript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/application/documents.test.ts",
+      "language": "typescript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/application/evidence-pack.test.ts",
+      "language": "typescript",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/application/items.test.ts",
+      "language": "typescript",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/application/reminders.test.ts",
+      "language": "typescript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/application/service-events.test.ts",
+      "language": "typescript",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/chat-intake.test.ts",
+      "language": "typescript",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/document.test.ts",
+      "language": "typescript",
+      "sizeLines": 101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/export.test.ts",
+      "language": "typescript",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/item-crud.test.ts",
+      "language": "typescript",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/item.test.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/output-contracts.test.ts",
+      "language": "typescript",
+      "sizeLines": 296,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/program.test.ts",
+      "language": "typescript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/service-event-reminder.test.ts",
+      "language": "typescript",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/cli/warranty.test.ts",
+      "language": "typescript",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/domain/chat-intake.test.ts",
+      "language": "typescript",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/domain/item.test.ts",
+      "language": "typescript",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/domain/warranty.test.ts",
+      "language": "typescript",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "vitest.config.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    }
+  ],
+  "totalFiles": 60,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "moderate",
+  "importMap": {
+    ".github/workflows/ci.yml": [],
+    ".learnings/ERRORS.md": [],
+    ".understand-anything/.understandignore": [],
+    "AGENTS.md": [],
+    "docs/specs/chat-intake.md": [],
+    "docs/specs/ci-workflow.md": [],
+    "docs/specs/document-attachment-ocr-draft.md": [],
+    "docs/specs/evidence-pack-export.md": [],
+    "docs/specs/item-domain.md": [],
+    "docs/specs/item-json-crud.md": [],
+    "docs/specs/item-sqlite-persistence.md": [],
+    "docs/specs/local-backup-restore.md": [],
+    "docs/specs/openclaw-skill-wrapper.md": [],
+    "docs/specs/service-events-reminders.md": [],
+    "docs/specs/warranty-state.md": [],
+    "package.json": [],
+    "README.md": [],
+    "scripts/preflight.sh": [],
+    "skills/inventory/SKILL.md": [],
+    "src/adapters/documents/json-file-document-repository.ts": [],
+    "src/adapters/documents/local-attachment-storage.ts": [],
+    "src/adapters/json-file-item-repository.ts": [],
+    "src/adapters/json-file-service-event-repository.ts": [],
+    "src/adapters/sqlite/database.ts": [],
+    "src/adapters/sqlite/item-repository.ts": [],
+    "src/adapters/sqlite/schema.ts": [],
+    "src/application/documents.ts": [],
+    "src/application/exporters/evidence-pack.ts": [],
+    "src/application/items.ts": [],
+    "src/application/reminders.ts": [],
+    "src/application/service-events.ts": [],
+    "src/cli/index.ts": [],
+    "src/cli/program.ts": [],
+    "src/domain/chat-intake.ts": [],
+    "src/domain/document.ts": [],
+    "src/domain/item.ts": [],
+    "src/domain/service-event.ts": [],
+    "src/domain/warranty.ts": [],
+    "tests/adapters/documents/local-attachment-storage.test.ts": [],
+    "tests/adapters/json-file-item-repository.test.ts": [],
+    "tests/adapters/sqlite/item-repository.test.ts": [],
+    "tests/application/documents.test.ts": [],
+    "tests/application/evidence-pack.test.ts": [],
+    "tests/application/items.test.ts": [],
+    "tests/application/reminders.test.ts": [],
+    "tests/application/service-events.test.ts": [],
+    "tests/cli/chat-intake.test.ts": [],
+    "tests/cli/document.test.ts": [],
+    "tests/cli/export.test.ts": [],
+    "tests/cli/item-crud.test.ts": [],
+    "tests/cli/item.test.ts": [],
+    "tests/cli/output-contracts.test.ts": [],
+    "tests/cli/program.test.ts": [],
+    "tests/cli/service-event-reminder.test.ts": [],
+    "tests/cli/warranty.test.ts": [],
+    "tests/domain/chat-intake.test.ts": [],
+    "tests/domain/item.test.ts": [],
+    "tests/domain/warranty.test.ts": [],
+    "tsconfig.json": [],
+    "vitest.config.ts": []
+  }
+}

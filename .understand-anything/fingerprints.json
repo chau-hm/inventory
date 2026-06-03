@@ -1,0 +1,2856 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "20f55d2b74011eacbf2c311cbc94243867800368",
+  "generatedAt": "2026-06-03T15:02:25.966Z",
+  "files": {
+    ".github/workflows/ci.yml": {
+      "filePath": ".github/workflows/ci.yml",
+      "contentHash": "bbcc2cfce81460531443457aa1db90d4ff23a463e5400eada061ba42b8867716",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    ".learnings/ERRORS.md": {
+      "filePath": ".learnings/ERRORS.md",
+      "contentHash": "4774cdf0e268c7734620b09a1bc31be7f461d1405b72861e46403f2ab2cc8b7b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "d0a948d3f32dbbedcb4bd09c8123fef63760338719e3a8f13b8509904934674b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": false
+    },
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "d8a3168cf1d2603f3187eb233142630d456fc269e2c66aa6c033e90b4fed5e60",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/chat-intake.md": {
+      "filePath": "docs/specs/chat-intake.md",
+      "contentHash": "17cf29ab0522777c2f0a42e9322d0aca739e56fb178cf617fe611c078412dfe3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/ci-workflow.md": {
+      "filePath": "docs/specs/ci-workflow.md",
+      "contentHash": "a23f7a8e22950761fd79d958bf18fa6aeefb1395c934ace247c5cca8dbc8208e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/document-attachment-ocr-draft.md": {
+      "filePath": "docs/specs/document-attachment-ocr-draft.md",
+      "contentHash": "ee306ec9c36dbd5a28f2902e15f20ba7097030d467f56e2dfdf371a53c4d7281",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/evidence-pack-export.md": {
+      "filePath": "docs/specs/evidence-pack-export.md",
+      "contentHash": "eb6878d2402ec19cf9468fb64f4e4f2a3d476f0b764506871050c68904194b16",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/item-domain.md": {
+      "filePath": "docs/specs/item-domain.md",
+      "contentHash": "a5c5f0c8ca7aa91f5ff5e30d117ae7d41dfefcc7c7e62767b348624924aa1eb4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/item-json-crud.md": {
+      "filePath": "docs/specs/item-json-crud.md",
+      "contentHash": "33205c01156ca919cbbea2f221a28cd2592374828163451dd5428ab55b25599b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/item-sqlite-persistence.md": {
+      "filePath": "docs/specs/item-sqlite-persistence.md",
+      "contentHash": "a4e88df88006d485635247c44b6559b6d1a8b6c7d0f751bfb44f61e7d1592bba",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/local-backup-restore.md": {
+      "filePath": "docs/specs/local-backup-restore.md",
+      "contentHash": "624b1e3acd82a4604ee896eca8483da7764913c63424a5be549169099369d299",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/openclaw-skill-wrapper.md": {
+      "filePath": "docs/specs/openclaw-skill-wrapper.md",
+      "contentHash": "8b921be86d07068f7ce4acb0e315789b5f68408f32009979a2971e4021abee27",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/service-events-reminders.md": {
+      "filePath": "docs/specs/service-events-reminders.md",
+      "contentHash": "ef055a21d371b653edcef79bd8383b5de1cb2d5555b61f8d044edf845a6a19e1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "docs/specs/warranty-state.md": {
+      "filePath": "docs/specs/warranty-state.md",
+      "contentHash": "e24c456b7fd3da8d090449dee5b74fc351b17c695acf064507939d4bf9c0f1d2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "5678c9d8f93ac65d6e5c29351a91f4fb3fbca0a1e79d7536e5f89fd0834d69ff",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "cdc081ab8f0facddf191aa756407f823f9b633c881f278915f2151781debc29a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 208,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/preflight.sh": {
+      "filePath": "scripts/preflight.sh",
+      "contentHash": "ac31a47914172757fd2bbc25dcf910b235c6b7332b0ee1d720c95db61c04bfa4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "skills/inventory/SKILL.md": {
+      "filePath": "skills/inventory/SKILL.md",
+      "contentHash": "6fa8aa5a40c055388abe92cf12a7017ba8e2ef95d0a054ceff404a2348449c6e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 68,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/documents/json-file-document-repository.ts": {
+      "filePath": "src/adapters/documents/json-file-document-repository.ts",
+      "contentHash": "d80a25d58f95ad67531e0ff3f8afc62061d9d8d57a81dd75156b0501932142eb",
+      "functions": [
+        {
+          "name": "isNodeError",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "JsonFileDocumentRepository",
+          "methods": [
+            "constructor",
+            "list",
+            "saveAll"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdir",
+            "readFile",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "dirname"
+          ]
+        },
+        {
+          "source": "../../application/documents.js",
+          "specifiers": [
+            "DocumentRepository"
+          ]
+        },
+        {
+          "source": "../../domain/document.js",
+          "specifiers": [
+            "SavedDocument"
+          ]
+        }
+      ],
+      "exports": [
+        "JsonFileDocumentRepository"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/documents/local-attachment-storage.ts": {
+      "filePath": "src/adapters/documents/local-attachment-storage.ts",
+      "contentHash": "2236ecc514e1b4d78c3bc6cea420436ac59ef59daab43dd256e4caa61386058a",
+      "functions": [
+        {
+          "name": "sanitizePathPart",
+          "params": [
+            "value"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "mimeTypeFromPath",
+          "params": [
+            "path"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "LocalAttachmentStorage",
+          "methods": [
+            "constructor",
+            "store"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "createHash"
+          ]
+        },
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "copyFile",
+            "mkdir",
+            "readFile",
+            "stat"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "basename",
+            "extname",
+            "join",
+            "resolve"
+          ]
+        },
+        {
+          "source": "../../application/documents.js",
+          "specifiers": [
+            "AttachmentStorage"
+          ]
+        }
+      ],
+      "exports": [
+        "LocalAttachmentStorage"
+      ],
+      "totalLines": 48,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/json-file-item-repository.ts": {
+      "filePath": "src/adapters/json-file-item-repository.ts",
+      "contentHash": "51d878dca4b42ca7fca5d9335a7990e9e50908e31b72765474055cf7266e68b6",
+      "functions": [
+        {
+          "name": "isNodeError",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "JsonFileItemRepository",
+          "methods": [
+            "constructor",
+            "list",
+            "saveAll"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdir",
+            "readFile",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "dirname"
+          ]
+        },
+        {
+          "source": "../application/items.js",
+          "specifiers": [
+            "ItemRepository",
+            "SavedItem"
+          ]
+        }
+      ],
+      "exports": [
+        "JsonFileItemRepository"
+      ],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/json-file-service-event-repository.ts": {
+      "filePath": "src/adapters/json-file-service-event-repository.ts",
+      "contentHash": "3ef73bb37a6a987812a9411a52c7c0493c57cd712d1174dcc771af49af29188e",
+      "functions": [
+        {
+          "name": "isNodeError",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "JsonFileServiceEventRepository",
+          "methods": [
+            "constructor",
+            "list",
+            "saveAll"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdir",
+            "readFile",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "dirname"
+          ]
+        },
+        {
+          "source": "../application/service-events.js",
+          "specifiers": [
+            "ServiceEventRepository"
+          ]
+        },
+        {
+          "source": "../domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        }
+      ],
+      "exports": [
+        "JsonFileServiceEventRepository"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/sqlite/database.ts": {
+      "filePath": "src/adapters/sqlite/database.ts",
+      "contentHash": "8ea7bb9366165af977ce0ee17e015cca171bfc4f26a452362318b1184483d660",
+      "functions": [
+        {
+          "name": "openInventoryDatabase",
+          "params": [
+            "path"
+          ],
+          "returnType": "SqliteDatabase",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ensureInventorySchema",
+          "params": [
+            "sqlite"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "better-sqlite3",
+          "specifiers": [
+            "Database"
+          ]
+        },
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "mkdirSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "dirname"
+          ]
+        }
+      ],
+      "exports": [
+        "openInventoryDatabase",
+        "ensureInventorySchema"
+      ],
+      "totalLines": 48,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/sqlite/item-repository.ts": {
+      "filePath": "src/adapters/sqlite/item-repository.ts",
+      "contentHash": "723d4b11a0eb8edd364d077e2fbdfad946484e70555ba9acddf43264379e4061",
+      "functions": [
+        {
+          "name": "rowToItem",
+          "params": [
+            "row"
+          ],
+          "returnType": "SavedItem",
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "itemToInsert",
+          "params": [
+            "item"
+          ],
+          "returnType": "ItemInsert",
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "stripUndefined",
+          "params": [
+            "value"
+          ],
+          "returnType": "T",
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "SqliteItemRepository",
+          "methods": [
+            "constructor",
+            "list",
+            "saveAll"
+          ],
+          "properties": [
+            "db"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "imports": [
+        {
+          "source": "drizzle-orm/better-sqlite3",
+          "specifiers": [
+            "drizzle",
+            "BetterSQLite3Database"
+          ]
+        },
+        {
+          "source": "../../application/items.js",
+          "specifiers": [
+            "ItemRepository",
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../../domain/item.js",
+          "specifiers": [
+            "validateItemDraft"
+          ]
+        },
+        {
+          "source": "./database.js",
+          "specifiers": [
+            "SqliteDatabase"
+          ]
+        },
+        {
+          "source": "./database.js",
+          "specifiers": [
+            "ensureInventorySchema"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "itemsTable"
+          ]
+        }
+      ],
+      "exports": [
+        "SqliteItemRepository"
+      ],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "src/adapters/sqlite/schema.ts": {
+      "filePath": "src/adapters/sqlite/schema.ts",
+      "contentHash": "392de652003e6bc51750f03f56de0d107fad8ab17b70d939f46935ca091c9e0b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "drizzle-orm/sqlite-core",
+          "specifiers": [
+            "integer",
+            "sqliteTable",
+            "text"
+          ]
+        }
+      ],
+      "exports": [
+        "itemsTable"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "src/application/documents.ts": {
+      "filePath": "src/application/documents.ts",
+      "contentHash": "cff2ee2ccc9648ff0998a43501b9150b13fca9d84979c2e25bc047df083c3dbb",
+      "functions": [
+        {
+          "name": "createDocumentIngestDraft",
+          "params": [
+            "input"
+          ],
+          "returnType": "Promise<DocumentIngestDraft>",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "documentError",
+          "params": [
+            "code",
+            "message"
+          ],
+          "returnType": "DocumentServiceError",
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "DocumentService",
+          "methods": [
+            "constructor",
+            "attach",
+            "list",
+            "delete"
+          ],
+          "properties": [
+            "repository",
+            "storage",
+            "now",
+            "idGenerator"
+          ],
+          "exported": true,
+          "lineCount": 62
+        },
+        {
+          "name": "NoopOcrProvider",
+          "methods": [
+            "extract"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "../domain/document.js",
+          "specifiers": [
+            "DocumentDraft",
+            "DocumentKind",
+            "SavedDocument"
+          ]
+        },
+        {
+          "source": "../domain/document.js",
+          "specifiers": [
+            "validateDocumentDraft",
+            "validateSavedDocument"
+          ]
+        }
+      ],
+      "exports": [
+        "DocumentService",
+        "NoopOcrProvider",
+        "createDocumentIngestDraft"
+      ],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "src/application/exporters/evidence-pack.ts": {
+      "filePath": "src/application/exporters/evidence-pack.ts",
+      "contentHash": "e5fc81629669324753b787057665ed2dab90a9c63ec5d24a21caa4b2d1884760",
+      "functions": [
+        {
+          "name": "exportEvidencePack",
+          "params": [
+            "input"
+          ],
+          "returnType": "Promise<EvidencePackResult>",
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "formatEvidencePackForTelegram",
+          "params": [
+            "result"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "copyFile",
+            "mkdir",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "basename",
+            "join"
+          ]
+        },
+        {
+          "source": "../../domain/document.js",
+          "specifiers": [
+            "SavedDocument"
+          ]
+        },
+        {
+          "source": "../../domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        },
+        {
+          "source": "../items.js",
+          "specifiers": [
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../reminders.js",
+          "specifiers": [
+            "calculateDueReminders",
+            "Reminder"
+          ]
+        }
+      ],
+      "exports": [
+        "exportEvidencePack",
+        "formatEvidencePackForTelegram"
+      ],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "src/application/items.ts": {
+      "filePath": "src/application/items.ts",
+      "contentHash": "c4144188703ef25e6e981297d3817a1f1ab6fb1a29acfa11750a4d64b4a00e98",
+      "functions": [
+        {
+          "name": "resolveSingleTarget",
+          "params": [
+            "items",
+            "target",
+            "scope"
+          ],
+          "returnType": "SavedItem",
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "searchableItems",
+          "params": [
+            "items",
+            "scope"
+          ],
+          "returnType": "SavedItem[]",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "itemMatchesQuery",
+          "params": [
+            "item",
+            "query"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "replaceItem",
+          "params": [
+            "items",
+            "replacement"
+          ],
+          "returnType": "SavedItem[]",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "targetError",
+          "params": [
+            "code",
+            "candidates"
+          ],
+          "returnType": "TargetResolutionError",
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "ItemService",
+          "methods": [
+            "constructor",
+            "add",
+            "list",
+            "search",
+            "detail",
+            "edit",
+            "delete",
+            "restore"
+          ],
+          "properties": [
+            "repository",
+            "now",
+            "idGenerator"
+          ],
+          "exported": true,
+          "lineCount": 87
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "../domain/item.js",
+          "specifiers": [
+            "ItemDraft",
+            "ItemStatus"
+          ]
+        },
+        {
+          "source": "../domain/item.js",
+          "specifiers": [
+            "validateItemDraft"
+          ]
+        }
+      ],
+      "exports": [
+        "ItemService",
+        "resolveSingleTarget"
+      ],
+      "totalLines": 184,
+      "hasStructuralAnalysis": true
+    },
+    "src/application/reminders.ts": {
+      "filePath": "src/application/reminders.ts",
+      "contentHash": "3a33bf56602cdc0334cb8ed6289dd1797b84b7dc85c9990329f957b1437bf759",
+      "functions": [
+        {
+          "name": "calculateDueReminders",
+          "params": [
+            "input"
+          ],
+          "returnType": "Reminder[]",
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "differenceInCalendarDays",
+          "params": [
+            "leftDateText",
+            "rightDateText"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "parseUtcDate",
+          "params": [
+            "dateText"
+          ],
+          "returnType": "Date",
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./items.js",
+          "specifiers": [
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        },
+        {
+          "source": "../domain/warranty.js",
+          "specifiers": [
+            "calculateWarrantyState"
+          ]
+        }
+      ],
+      "exports": [
+        "calculateDueReminders"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "src/application/service-events.ts": {
+      "filePath": "src/application/service-events.ts",
+      "contentHash": "1f54067ab321993d17ba9b1e53877a33460d4c1d92a3b3f4da72d29e03a390a3",
+      "functions": [
+        {
+          "name": "serviceEventError",
+          "params": [
+            "code",
+            "message"
+          ],
+          "returnType": "ServiceEventError",
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "ServiceEventService",
+          "methods": [
+            "constructor",
+            "add",
+            "list",
+            "delete"
+          ],
+          "properties": [
+            "repository",
+            "now",
+            "idGenerator"
+          ],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "../domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent",
+            "ServiceEventDraft"
+          ]
+        },
+        {
+          "source": "../domain/service-event.js",
+          "specifiers": [
+            "validateSavedServiceEvent",
+            "validateServiceEventDraft"
+          ]
+        }
+      ],
+      "exports": [
+        "ServiceEventService"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "src/cli/index.ts": {
+      "filePath": "src/cli/index.ts",
+      "contentHash": "e414d2117814e2dab038129e28df588fd0b64b717c46470c044bb6d089283beb",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "src/cli/program.ts": {
+      "filePath": "src/cli/program.ts",
+      "contentHash": "67e66efb8dcc9e61cc5495cb9bfc8a96db558932eadeb19c2c4fe82260ec61e3",
+      "functions": [
+        {
+          "name": "createProgram",
+          "params": [],
+          "returnType": "Command",
+          "exported": true,
+          "lineCount": 782
+        },
+        {
+          "name": "currentIsoDate",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "formatChatParseText",
+          "params": [
+            "result"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "formatChatItemsText",
+          "params": [
+            "intent",
+            "items"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "applyChatMutation",
+          "params": [
+            "service",
+            "intent"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "parseChatDraftJson",
+          "params": [
+            "value"
+          ],
+          "returnType": "ChatItemDraft",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "isDraftParseResult",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "isChatItemDraft",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "chatDraftToItemInput",
+          "params": [
+            "draft"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "quoteArg",
+          "params": [
+            "value"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "createItemService",
+          "params": [
+            "options"
+          ],
+          "returnType": "ItemService",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "createDocumentService",
+          "params": [
+            "options"
+          ],
+          "returnType": "DocumentService",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "createServiceEventService",
+          "params": [
+            "options"
+          ],
+          "returnType": "ServiceEventService",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "serviceEventInputFromOptions",
+          "params": [
+            "options"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "documentInputFromOptions",
+          "params": [
+            "options"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "itemInputFromOptions",
+          "params": [
+            "options"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 20
+        },
+        {
+          "name": "itemPatchFromOptions",
+          "params": [
+            "options"
+          ],
+          "returnType": "ItemPatch",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "mutationPlan",
+          "params": [
+            "command",
+            "scope",
+            "plannedOperations",
+            "warnings"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "withMutationMetadata",
+          "params": [
+            "result",
+            "scope",
+            "sideEffects",
+            "warnings"
+          ],
+          "returnType": "T & { scope: Record<string, unknown>; sideEffects: Array<Record<string, unknown>>; warnings: string[] }",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "itemScope",
+          "params": [
+            "options",
+            "itemId"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "documentScope",
+          "params": [
+            "options",
+            "documentId"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "serviceEventScope",
+          "params": [
+            "options",
+            "eventId"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "evidencePackScope",
+          "params": [
+            "options",
+            "itemId"
+          ],
+          "returnType": "Record<string, unknown>",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "runItemAction",
+          "params": [
+            "options",
+            "action"
+          ],
+          "returnType": "Promise<void>",
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "itemErrorPayload",
+          "params": [
+            "error"
+          ],
+          "returnType": "{\n  ok: false;\n  error: { code: string; message: string; candidates: Array<{ id: string; name: string; category: string; status: string }> };\n}",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "isTargetResolutionError",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "runDocumentAction",
+          "params": [
+            "options",
+            "action"
+          ],
+          "returnType": "Promise<void>",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "documentErrorPayload",
+          "params": [
+            "error"
+          ],
+          "returnType": "{ ok: false; error: { code: string; message: string } }",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "runSimpleAction",
+          "params": [
+            "options",
+            "fallbackCode",
+            "action"
+          ],
+          "returnType": "Promise<void>",
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "getOutputFormat",
+          "params": [
+            "options"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "maybeAttachArtifactPath",
+          "params": [
+            "options",
+            "result"
+          ],
+          "returnType": "Promise<T | (T & { artifactPath: string })>",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "writeRunArtifact",
+          "params": [
+            "artifactDir",
+            "result"
+          ],
+          "returnType": "Promise<string>",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "parseDurationDays",
+          "params": [
+            "duration"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "defaultItemStorePath",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "defaultDocumentStorePath",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "defaultAttachmentsDir",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "defaultServiceEventStorePath",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdir",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "homedir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "commander",
+          "specifiers": [
+            "Command"
+          ]
+        },
+        {
+          "source": "../adapters/documents/json-file-document-repository.js",
+          "specifiers": [
+            "JsonFileDocumentRepository"
+          ]
+        },
+        {
+          "source": "../adapters/documents/local-attachment-storage.js",
+          "specifiers": [
+            "LocalAttachmentStorage"
+          ]
+        },
+        {
+          "source": "../adapters/json-file-item-repository.js",
+          "specifiers": [
+            "JsonFileItemRepository"
+          ]
+        },
+        {
+          "source": "../adapters/json-file-service-event-repository.js",
+          "specifiers": [
+            "JsonFileServiceEventRepository"
+          ]
+        },
+        {
+          "source": "../adapters/sqlite/database.js",
+          "specifiers": [
+            "openInventoryDatabase"
+          ]
+        },
+        {
+          "source": "../adapters/sqlite/item-repository.js",
+          "specifiers": [
+            "SqliteItemRepository"
+          ]
+        },
+        {
+          "source": "../application/documents.js",
+          "specifiers": [
+            "createDocumentIngestDraft",
+            "DocumentService",
+            "NoopOcrProvider"
+          ]
+        },
+        {
+          "source": "../application/exporters/evidence-pack.js",
+          "specifiers": [
+            "exportEvidencePack",
+            "formatEvidencePackForTelegram"
+          ]
+        },
+        {
+          "source": "../application/items.js",
+          "specifiers": [
+            "ItemService",
+            "ItemPatch",
+            "TargetResolutionError"
+          ]
+        },
+        {
+          "source": "../application/reminders.js",
+          "specifiers": [
+            "calculateDueReminders"
+          ]
+        },
+        {
+          "source": "../application/service-events.js",
+          "specifiers": [
+            "ServiceEventService"
+          ]
+        },
+        {
+          "source": "../domain/chat-intake.js",
+          "specifiers": [
+            "parseChatItem",
+            "parseChatItemIntent",
+            "parseChatItemMutationIntent",
+            "ChatItemIntent",
+            "ChatItemDraft",
+            "ChatItemParseResult"
+          ]
+        },
+        {
+          "source": "../domain/item.js",
+          "specifiers": [
+            "validateItemDraft"
+          ]
+        },
+        {
+          "source": "../domain/warranty.js",
+          "specifiers": [
+            "calculateWarrantyState"
+          ]
+        }
+      ],
+      "exports": [
+        "cliVersion",
+        "createProgram"
+      ],
+      "totalLines": 1239,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/chat-intake.ts": {
+      "filePath": "src/domain/chat-intake.ts",
+      "contentHash": "846e0478b3551a0235e0b48c70db9c9bea3594570934cf1d8775b7b4d4f8586d",
+      "functions": [
+        {
+          "name": "parseChatItem",
+          "params": [
+            "input"
+          ],
+          "returnType": "ChatItemParseResult",
+          "exported": true,
+          "lineCount": 43
+        },
+        {
+          "name": "parseChatItemIntent",
+          "params": [
+            "input"
+          ],
+          "returnType": "ChatItemIntent",
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "parseChatItemMutationIntent",
+          "params": [
+            "input"
+          ],
+          "returnType": "ChatItemMutationIntent",
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "parseChatItemPatch",
+          "params": [
+            "text"
+          ],
+          "returnType": "ChatItemPatch",
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "inferName",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "inferCategory",
+          "params": [
+            "text",
+            "name"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "inferBrand",
+          "params": [
+            "text",
+            "name"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "inferModel",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferSerialNumber",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferLocation",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferOwner",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferPurchaseDate",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "inferWarrantyEnd",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "inferWarrantyMonths",
+          "params": [
+            "text"
+          ],
+          "returnType": "number | undefined",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "inferMerchant",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferNotes",
+          "params": [
+            "text"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "inferStatus",
+          "params": [
+            "text"
+          ],
+          "returnType": "\"active\" | \"deleted\" | \"all\"",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "inferPrice",
+          "params": [
+            "text"
+          ],
+          "returnType": "{ purchasePriceMinor?: number; currency?: string }",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "normalizeCurrency",
+          "params": [
+            "value",
+            "dollarSign"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "decimalToMinorUnits",
+          "params": [
+            "value",
+            "currency"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "buildItemAddArgs",
+          "params": [
+            "draft"
+          ],
+          "returnType": "string[]",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "buildItemPatchArgs",
+          "params": [
+            "patch"
+          ],
+          "returnType": "string[]",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "normalizeMutationAction",
+          "params": [
+            "value"
+          ],
+          "returnType": "\"edit\" | \"delete\" | \"restore\"",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "splitMutationRemainder",
+          "params": [
+            "action",
+            "remainder"
+          ],
+          "returnType": "[string | undefined, string | undefined]",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "optionalArg",
+          "params": [
+            "flag",
+            "value"
+          ],
+          "returnType": "string[]",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "stripUndefined",
+          "params": [
+            "value"
+          ],
+          "returnType": "Partial<T>",
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "parseChatItem",
+        "parseChatItemIntent",
+        "parseChatItemMutationIntent"
+      ],
+      "totalLines": 450,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/document.ts": {
+      "filePath": "src/domain/document.ts",
+      "contentHash": "b892b7a4f273fdf1565de89e52a4e395015de263bcc0a58c7131490ef73716a8",
+      "functions": [
+        {
+          "name": "validateDocumentDraft",
+          "params": [
+            "input"
+          ],
+          "returnType": "DocumentDraft",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "validateSavedDocument",
+          "params": [
+            "input"
+          ],
+          "returnType": "SavedDocument",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        }
+      ],
+      "exports": [
+        "documentKinds",
+        "documentStatuses",
+        "documentDraftSchema",
+        "savedDocumentSchema",
+        "validateDocumentDraft",
+        "validateSavedDocument"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/item.ts": {
+      "filePath": "src/domain/item.ts",
+      "contentHash": "07c3d9b4834edad82bd8689121a1c56a6dc31f7b9ee574c96cfacd1cc27970d5",
+      "functions": [
+        {
+          "name": "validateItemDraft",
+          "params": [
+            "input"
+          ],
+          "returnType": "ItemDraft",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        }
+      ],
+      "exports": [
+        "itemStatuses",
+        "itemDraftSchema",
+        "validateItemDraft"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/service-event.ts": {
+      "filePath": "src/domain/service-event.ts",
+      "contentHash": "2e9c545471a3a19e745e471381817110ddb8eeb5dace991588b70826725a001d",
+      "functions": [
+        {
+          "name": "validateServiceEventDraft",
+          "params": [
+            "input"
+          ],
+          "returnType": "ServiceEventDraft",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "validateSavedServiceEvent",
+          "params": [
+            "input"
+          ],
+          "returnType": "SavedServiceEvent",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        }
+      ],
+      "exports": [
+        "serviceEventKinds",
+        "serviceEventStatuses",
+        "serviceEventDraftSchema",
+        "savedServiceEventSchema",
+        "validateServiceEventDraft",
+        "validateSavedServiceEvent"
+      ],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/warranty.ts": {
+      "filePath": "src/domain/warranty.ts",
+      "contentHash": "18985c6899b7e6f1d5dcab7e7f62f59cb52c462cf1a899b2750d72229a4524e4",
+      "functions": [
+        {
+          "name": "calculateWarrantyState",
+          "params": [
+            "input"
+          ],
+          "returnType": "WarrantyStateResult",
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "addCalendarMonths",
+          "params": [
+            "dateText",
+            "months"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "differenceInCalendarDays",
+          "params": [
+            "leftDateText",
+            "rightDateText"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "parseUtcDate",
+          "params": [
+            "dateText"
+          ],
+          "returnType": "Date",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "parseIsoDateParts",
+          "params": [
+            "dateText"
+          ],
+          "returnType": "{ year: number; month: number; day: number }",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "assertIsoDate",
+          "params": [
+            "dateText"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "daysInMonth",
+          "params": [
+            "year",
+            "month"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "formatIsoDate",
+          "params": [
+            "year",
+            "month",
+            "day"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "modulo",
+          "params": [
+            "value",
+            "divisor"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "calculateWarrantyState",
+        "addCalendarMonths"
+      ],
+      "totalLines": 141,
+      "hasStructuralAnalysis": true
+    },
+    "tests/adapters/documents/local-attachment-storage.test.ts": {
+      "filePath": "tests/adapters/documents/local-attachment-storage.test.ts",
+      "contentHash": "63102302aacb6ffb73901ca998ee8b75126d01b1eb626719ba801ab95ee1a182",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../../src/adapters/documents/local-attachment-storage.js",
+          "specifiers": [
+            "LocalAttachmentStorage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "tests/adapters/json-file-item-repository.test.ts": {
+      "filePath": "tests/adapters/json-file-item-repository.test.ts",
+      "contentHash": "65b9e7f749611e392994840654e901d1a72d53961b92482a53a63765d4ef873d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/adapters/json-file-item-repository.js",
+          "specifiers": [
+            "JsonFileItemRepository"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "tests/adapters/sqlite/item-repository.test.ts": {
+      "filePath": "tests/adapters/sqlite/item-repository.test.ts",
+      "contentHash": "02648da6a1900a012f13bd4e4a9819e1f95e9141fd24960be018b58c7edb9997",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "rm"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../../src/application/items.js",
+          "specifiers": [
+            "ItemService",
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../../../src/adapters/sqlite/database.js",
+          "specifiers": [
+            "openInventoryDatabase",
+            "SqliteDatabase"
+          ]
+        },
+        {
+          "source": "../../../src/adapters/sqlite/item-repository.js",
+          "specifiers": [
+            "SqliteItemRepository"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "tests/application/documents.test.ts": {
+      "filePath": "tests/application/documents.test.ts",
+      "contentHash": "920ada0e288dbcfc85a3d7151d41ce887260f95339f7d7f85e58f6f06b507412",
+      "functions": [
+        {
+          "name": "createService",
+          "params": [
+            "repository"
+          ],
+          "returnType": "{\n  repository: MemoryDocumentRepository;\n  service: DocumentService;\n}",
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [
+        {
+          "name": "MemoryDocumentRepository",
+          "methods": [
+            "list",
+            "saveAll"
+          ],
+          "properties": [
+            "documents"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "FakeAttachmentStorage",
+          "methods": [
+            "store"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 17
+        }
+      ],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/application/documents.js",
+          "specifiers": [
+            "createDocumentIngestDraft",
+            "DocumentService",
+            "NoopOcrProvider",
+            "AttachmentStorage",
+            "DocumentRepository"
+          ]
+        },
+        {
+          "source": "../../src/domain/document.js",
+          "specifiers": [
+            "SavedDocument"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "tests/application/evidence-pack.test.ts": {
+      "filePath": "tests/application/evidence-pack.test.ts",
+      "contentHash": "5af3e67f7e5cd36211a49f1ea7147272b7e7f48760173443c786016221da05d5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/application/exporters/evidence-pack.js",
+          "specifiers": [
+            "exportEvidencePack",
+            "formatEvidencePackForTelegram"
+          ]
+        },
+        {
+          "source": "../../src/application/items.js",
+          "specifiers": [
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../../src/domain/document.js",
+          "specifiers": [
+            "SavedDocument"
+          ]
+        },
+        {
+          "source": "../../src/domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "tests/application/items.test.ts": {
+      "filePath": "tests/application/items.test.ts",
+      "contentHash": "4414c1a1bfcb9635b642ded3cf5268b4bfd9bd6e4f3d11919bf9efc7a7dbfa0c",
+      "functions": [
+        {
+          "name": "createService",
+          "params": [
+            "repository"
+          ],
+          "returnType": "{ repository: MemoryItemRepository; service: ItemService }",
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "MemoryItemRepository",
+          "methods": [
+            "list",
+            "saveAll"
+          ],
+          "properties": [
+            "items"
+          ],
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/application/items.js",
+          "specifiers": [
+            "ItemService",
+            "ItemRepository",
+            "SavedItem"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 97,
+      "hasStructuralAnalysis": true
+    },
+    "tests/application/reminders.test.ts": {
+      "filePath": "tests/application/reminders.test.ts",
+      "contentHash": "e804f8ad47ded7962d6452cc65da2bb397c99eb9fe20d28ebc3c08d2cb561c63",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/application/reminders.js",
+          "specifiers": [
+            "calculateDueReminders"
+          ]
+        },
+        {
+          "source": "../../src/application/items.js",
+          "specifiers": [
+            "SavedItem"
+          ]
+        },
+        {
+          "source": "../../src/domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "tests/application/service-events.test.ts": {
+      "filePath": "tests/application/service-events.test.ts",
+      "contentHash": "a7fdcdfd3bd9b58a563ff23340e0f4808a67eba86025d390df03f930d69ff83a",
+      "functions": [
+        {
+          "name": "createService",
+          "params": [
+            "repository"
+          ],
+          "returnType": "{\n  repository: MemoryServiceEventRepository;\n  service: ServiceEventService;\n}",
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "classes": [
+        {
+          "name": "MemoryServiceEventRepository",
+          "methods": [
+            "list",
+            "saveAll"
+          ],
+          "properties": [
+            "events"
+          ],
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/application/service-events.js",
+          "specifiers": [
+            "ServiceEventService",
+            "ServiceEventRepository"
+          ]
+        },
+        {
+          "source": "../../src/domain/service-event.js",
+          "specifiers": [
+            "SavedServiceEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/chat-intake.test.ts": {
+      "filePath": "tests/cli/chat-intake.test.ts",
+      "contentHash": "ae90a7babbde0989d121a43875e8233d23919fc1b46d51130654ea559730b521",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 178,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/document.test.ts": {
+      "filePath": "tests/cli/document.test.ts",
+      "contentHash": "34672ecd37d4b2cb019aa27c6df36da5da9470b7bf326d30573785d3a543da85",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/export.test.ts": {
+      "filePath": "tests/cli/export.test.ts",
+      "contentHash": "405d39387728e33fa69faff57291f17d8a577d19e904ef3039b7568214640b0a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 188,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/item-crud.test.ts": {
+      "filePath": "tests/cli/item-crud.test.ts",
+      "contentHash": "e6899b9757f1f9a5f676ba1f2fef5755a45e2c4fe8de338f6267fac249b0daf1",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/item.test.ts": {
+      "filePath": "tests/cli/item.test.ts",
+      "contentHash": "382cdcebd40654bd847fd3311d39c3bc49c7050fbeda5e904bfec2b9ec133cdf",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/output-contracts.test.ts": {
+      "filePath": "tests/cli/output-contracts.test.ts",
+      "contentHash": "1af54340e220be912455e6f99935b655bc7dbd42286cdabfc2b3b26744117769",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "readFile",
+            "rm",
+            "writeFile"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 297,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/program.test.ts": {
+      "filePath": "tests/cli/program.test.ts",
+      "contentHash": "95344293c3b9d07cb3295b6ce84a45e7015c942f52848505de995d1773b9a690",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/service-event-reminder.test.ts": {
+      "filePath": "tests/cli/service-event-reminder.test.ts",
+      "contentHash": "7b0b603d1bc312db66d50d930552b914c46ab63a01e8f185daaebde34d540b86",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "specifiers": [
+            "mkdtemp",
+            "rm"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 124,
+      "hasStructuralAnalysis": true
+    },
+    "tests/cli/warranty.test.ts": {
+      "filePath": "tests/cli/warranty.test.ts",
+      "contentHash": "eda1fcd5328bfd7950ad67d48419da72e2bebcda378b108311fd38215fd33df2",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../../src/cli/program.js",
+          "specifiers": [
+            "createProgram"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "tests/domain/chat-intake.test.ts": {
+      "filePath": "tests/domain/chat-intake.test.ts",
+      "contentHash": "e90d8fb7dbcba12e19bab9e8c3901dbff989ac41cd7918b133c21231893c11d6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/domain/chat-intake.js",
+          "specifiers": [
+            "parseChatItem",
+            "parseChatItemIntent",
+            "parseChatItemMutationIntent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "tests/domain/item.test.ts": {
+      "filePath": "tests/domain/item.test.ts",
+      "contentHash": "913cadc4b0529d99ab39d06c7d002ea69d32c969fe7ff69e441f295ceaf80659",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/domain/item.js",
+          "specifiers": [
+            "validateItemDraft"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 105,
+      "hasStructuralAnalysis": true
+    },
+    "tests/domain/warranty.test.ts": {
+      "filePath": "tests/domain/warranty.test.ts",
+      "contentHash": "2a36ea003a8ba6e80b68421b9f9687bc16e1461f5744e3700bd7ff80d78aef24",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../../src/domain/warranty.js",
+          "specifiers": [
+            "addCalendarMonths",
+            "calculateWarrantyState"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 134,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "4a6764883191513d7ddb3e7608d8f63cdc077217b1f47f77073e852178778bf2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "vitest.config.ts": {
+      "filePath": "vitest.config.ts",
+      "contentHash": "4b2442312a8ad93b031d75b6011ca2a04e1daf5b5b455b15f778982c3ca90768",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

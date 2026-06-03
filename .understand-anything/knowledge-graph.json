@@ -1,0 +1,2233 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "inventory-control",
+    "languages": [
+      "json",
+      "markdown",
+      "shell",
+      "typescript",
+      "unknown",
+      "yaml"
+    ],
+    "frameworks": [
+      "GitHub Actions",
+      "Vitest"
+    ],
+    "description": "Agent-native local-first personal inventory CLI for warranty-aware item tracking, document attachments, service events, reminders, and evidence export workflows.",
+    "analyzedAt": "2026-06-03T14:55:00.104Z",
+    "gitCommitHash": "20f55d2b74011eacbf2c311cbc94243867800368"
+  },
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "name": "ci.yml",
+      "filePath": ".github/workflows/ci.yml",
+      "summary": "CI/CD workflow or pipeline definition.",
+      "tags": [
+        "ci-cd"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Project documentation file for AGENTS.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project documentation file for README.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Configuration file used to control tooling or runtime behavior.",
+      "tags": [
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Configuration file used to control tooling or runtime behavior.",
+      "tags": [
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/chat-intake.md",
+      "type": "document",
+      "name": "chat-intake.md",
+      "filePath": "docs/specs/chat-intake.md",
+      "summary": "Project documentation file for chat-intake.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/ci-workflow.md",
+      "type": "document",
+      "name": "ci-workflow.md",
+      "filePath": "docs/specs/ci-workflow.md",
+      "summary": "Project documentation file for ci-workflow.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/document-attachment-ocr-draft.md",
+      "type": "document",
+      "name": "document-attachment-ocr-draft.md",
+      "filePath": "docs/specs/document-attachment-ocr-draft.md",
+      "summary": "Project documentation file for document-attachment-ocr-draft.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/evidence-pack-export.md",
+      "type": "document",
+      "name": "evidence-pack-export.md",
+      "filePath": "docs/specs/evidence-pack-export.md",
+      "summary": "Project documentation file for evidence-pack-export.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/item-domain.md",
+      "type": "document",
+      "name": "item-domain.md",
+      "filePath": "docs/specs/item-domain.md",
+      "summary": "Project documentation file for item-domain.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/item-json-crud.md",
+      "type": "document",
+      "name": "item-json-crud.md",
+      "filePath": "docs/specs/item-json-crud.md",
+      "summary": "Project documentation file for item-json-crud.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/item-sqlite-persistence.md",
+      "type": "document",
+      "name": "item-sqlite-persistence.md",
+      "filePath": "docs/specs/item-sqlite-persistence.md",
+      "summary": "Project documentation file for item-sqlite-persistence.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/local-backup-restore.md",
+      "type": "document",
+      "name": "local-backup-restore.md",
+      "filePath": "docs/specs/local-backup-restore.md",
+      "summary": "Project documentation file for local-backup-restore.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/openclaw-skill-wrapper.md",
+      "type": "document",
+      "name": "openclaw-skill-wrapper.md",
+      "filePath": "docs/specs/openclaw-skill-wrapper.md",
+      "summary": "Project documentation file for openclaw-skill-wrapper.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/service-events-reminders.md",
+      "type": "document",
+      "name": "service-events-reminders.md",
+      "filePath": "docs/specs/service-events-reminders.md",
+      "summary": "Project documentation file for service-events-reminders.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/specs/warranty-state.md",
+      "type": "document",
+      "name": "warranty-state.md",
+      "filePath": "docs/specs/warranty-state.md",
+      "summary": "Project documentation file for warranty-state.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.learnings/ERRORS.md",
+      "type": "document",
+      "name": "ERRORS.md",
+      "filePath": ".learnings/ERRORS.md",
+      "summary": "Project documentation file for ERRORS.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/preflight.sh",
+      "type": "file",
+      "name": "preflight.sh",
+      "filePath": "scripts/preflight.sh",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:skills/inventory/SKILL.md",
+      "type": "document",
+      "name": "SKILL.md",
+      "filePath": "skills/inventory/SKILL.md",
+      "summary": "Project documentation file for SKILL.md.",
+      "tags": [
+        "documentation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/adapters/documents/json-file-document-repository.ts",
+      "type": "file",
+      "name": "json-file-document-repository.ts",
+      "filePath": "src/adapters/documents/json-file-document-repository.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/adapters/documents/json-file-document-repository.ts:JsonFileDocumentRepository",
+      "type": "class",
+      "name": "JsonFileDocumentRepository",
+      "filePath": "src/adapters/documents/json-file-document-repository.ts",
+      "summary": "Class JsonFileDocumentRepository defined in json-file-document-repository.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/adapters/documents/local-attachment-storage.ts",
+      "type": "file",
+      "name": "local-attachment-storage.ts",
+      "filePath": "src/adapters/documents/local-attachment-storage.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/adapters/documents/local-attachment-storage.ts:LocalAttachmentStorage",
+      "type": "class",
+      "name": "LocalAttachmentStorage",
+      "filePath": "src/adapters/documents/local-attachment-storage.ts",
+      "summary": "Class LocalAttachmentStorage defined in local-attachment-storage.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/adapters/json-file-item-repository.ts",
+      "type": "file",
+      "name": "json-file-item-repository.ts",
+      "filePath": "src/adapters/json-file-item-repository.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/adapters/json-file-item-repository.ts:JsonFileItemRepository",
+      "type": "class",
+      "name": "JsonFileItemRepository",
+      "filePath": "src/adapters/json-file-item-repository.ts",
+      "summary": "Class JsonFileItemRepository defined in json-file-item-repository.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/adapters/json-file-service-event-repository.ts",
+      "type": "file",
+      "name": "json-file-service-event-repository.ts",
+      "filePath": "src/adapters/json-file-service-event-repository.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/adapters/json-file-service-event-repository.ts:JsonFileServiceEventRepository",
+      "type": "class",
+      "name": "JsonFileServiceEventRepository",
+      "filePath": "src/adapters/json-file-service-event-repository.ts",
+      "summary": "Class JsonFileServiceEventRepository defined in json-file-service-event-repository.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/adapters/sqlite/database.ts",
+      "type": "file",
+      "name": "database.ts",
+      "filePath": "src/adapters/sqlite/database.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/adapters/sqlite/database.ts:openInventoryDatabase",
+      "type": "function",
+      "name": "openInventoryDatabase",
+      "filePath": "src/adapters/sqlite/database.ts",
+      "summary": "Function openInventoryDatabase in database.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/adapters/sqlite/database.ts:ensureInventorySchema",
+      "type": "function",
+      "name": "ensureInventorySchema",
+      "filePath": "src/adapters/sqlite/database.ts",
+      "summary": "Function ensureInventorySchema in database.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/adapters/sqlite/item-repository.ts",
+      "type": "file",
+      "name": "item-repository.ts",
+      "filePath": "src/adapters/sqlite/item-repository.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/adapters/sqlite/item-repository.ts:rowToItem",
+      "type": "function",
+      "name": "rowToItem",
+      "filePath": "src/adapters/sqlite/item-repository.ts",
+      "summary": "Function rowToItem in item-repository.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/adapters/sqlite/item-repository.ts:itemToInsert",
+      "type": "function",
+      "name": "itemToInsert",
+      "filePath": "src/adapters/sqlite/item-repository.ts",
+      "summary": "Function itemToInsert in item-repository.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/adapters/sqlite/item-repository.ts:SqliteItemRepository",
+      "type": "class",
+      "name": "SqliteItemRepository",
+      "filePath": "src/adapters/sqlite/item-repository.ts",
+      "summary": "Class SqliteItemRepository defined in item-repository.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/adapters/sqlite/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "filePath": "src/adapters/sqlite/schema.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/application/documents.ts",
+      "type": "file",
+      "name": "documents.ts",
+      "filePath": "src/application/documents.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/documents.ts:createDocumentIngestDraft",
+      "type": "function",
+      "name": "createDocumentIngestDraft",
+      "filePath": "src/application/documents.ts",
+      "summary": "Function createDocumentIngestDraft in documents.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/application/documents.ts:DocumentService",
+      "type": "class",
+      "name": "DocumentService",
+      "filePath": "src/application/documents.ts",
+      "summary": "Class DocumentService defined in documents.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/application/documents.ts:NoopOcrProvider",
+      "type": "class",
+      "name": "NoopOcrProvider",
+      "filePath": "src/application/documents.ts",
+      "summary": "Class NoopOcrProvider defined in documents.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/application/exporters/evidence-pack.ts",
+      "type": "file",
+      "name": "evidence-pack.ts",
+      "filePath": "src/application/exporters/evidence-pack.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/exporters/evidence-pack.ts:exportEvidencePack",
+      "type": "function",
+      "name": "exportEvidencePack",
+      "filePath": "src/application/exporters/evidence-pack.ts",
+      "summary": "Function exportEvidencePack in evidence-pack.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/exporters/evidence-pack.ts:formatEvidencePackForTelegram",
+      "type": "function",
+      "name": "formatEvidencePackForTelegram",
+      "filePath": "src/application/exporters/evidence-pack.ts",
+      "summary": "Function formatEvidencePackForTelegram in evidence-pack.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/application/items.ts",
+      "type": "file",
+      "name": "items.ts",
+      "filePath": "src/application/items.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/items.ts:resolveSingleTarget",
+      "type": "function",
+      "name": "resolveSingleTarget",
+      "filePath": "src/application/items.ts",
+      "summary": "Function resolveSingleTarget in items.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/items.ts:itemMatchesQuery",
+      "type": "function",
+      "name": "itemMatchesQuery",
+      "filePath": "src/application/items.ts",
+      "summary": "Function itemMatchesQuery in items.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/application/items.ts:ItemService",
+      "type": "class",
+      "name": "ItemService",
+      "filePath": "src/application/items.ts",
+      "summary": "Class ItemService defined in items.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/application/reminders.ts",
+      "type": "file",
+      "name": "reminders.ts",
+      "filePath": "src/application/reminders.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/application/reminders.ts:calculateDueReminders",
+      "type": "function",
+      "name": "calculateDueReminders",
+      "filePath": "src/application/reminders.ts",
+      "summary": "Function calculateDueReminders in reminders.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/application/service-events.ts",
+      "type": "file",
+      "name": "service-events.ts",
+      "filePath": "src/application/service-events.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/application/service-events.ts:ServiceEventService",
+      "type": "class",
+      "name": "ServiceEventService",
+      "filePath": "src/application/service-events.ts",
+      "summary": "Class ServiceEventService defined in service-events.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/cli/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "src/cli/index.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/cli/program.ts",
+      "type": "file",
+      "name": "program.ts",
+      "filePath": "src/cli/program.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/cli/program.ts:createProgram",
+      "type": "function",
+      "name": "createProgram",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function createProgram in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/cli/program.ts:formatChatParseText",
+      "type": "function",
+      "name": "formatChatParseText",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function formatChatParseText in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/cli/program.ts:applyChatMutation",
+      "type": "function",
+      "name": "applyChatMutation",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function applyChatMutation in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:isChatItemDraft",
+      "type": "function",
+      "name": "isChatItemDraft",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function isChatItemDraft in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:chatDraftToItemInput",
+      "type": "function",
+      "name": "chatDraftToItemInput",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function chatDraftToItemInput in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/cli/program.ts:serviceEventInputFromOptions",
+      "type": "function",
+      "name": "serviceEventInputFromOptions",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function serviceEventInputFromOptions in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:itemInputFromOptions",
+      "type": "function",
+      "name": "itemInputFromOptions",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function itemInputFromOptions in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/cli/program.ts:mutationPlan",
+      "type": "function",
+      "name": "mutationPlan",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function mutationPlan in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:withMutationMetadata",
+      "type": "function",
+      "name": "withMutationMetadata",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function withMutationMetadata in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:runItemAction",
+      "type": "function",
+      "name": "runItemAction",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function runItemAction in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/cli/program.ts:itemErrorPayload",
+      "type": "function",
+      "name": "itemErrorPayload",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function itemErrorPayload in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/cli/program.ts:runDocumentAction",
+      "type": "function",
+      "name": "runDocumentAction",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function runDocumentAction in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:runSimpleAction",
+      "type": "function",
+      "name": "runSimpleAction",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function runSimpleAction in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/cli/program.ts:writeRunArtifact",
+      "type": "function",
+      "name": "writeRunArtifact",
+      "filePath": "src/cli/program.ts",
+      "summary": "Function writeRunArtifact in program.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/domain/chat-intake.ts",
+      "type": "file",
+      "name": "chat-intake.ts",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:parseChatItem",
+      "type": "function",
+      "name": "parseChatItem",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function parseChatItem in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:parseChatItemIntent",
+      "type": "function",
+      "name": "parseChatItemIntent",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function parseChatItemIntent in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:parseChatItemMutationIntent",
+      "type": "function",
+      "name": "parseChatItemMutationIntent",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function parseChatItemMutationIntent in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:parseChatItemPatch",
+      "type": "function",
+      "name": "parseChatItemPatch",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function parseChatItemPatch in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:inferName",
+      "type": "function",
+      "name": "inferName",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function inferName in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:inferCategory",
+      "type": "function",
+      "name": "inferCategory",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function inferCategory in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:inferBrand",
+      "type": "function",
+      "name": "inferBrand",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function inferBrand in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:inferPrice",
+      "type": "function",
+      "name": "inferPrice",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function inferPrice in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:normalizeCurrency",
+      "type": "function",
+      "name": "normalizeCurrency",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function normalizeCurrency in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:buildItemAddArgs",
+      "type": "function",
+      "name": "buildItemAddArgs",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function buildItemAddArgs in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:buildItemPatchArgs",
+      "type": "function",
+      "name": "buildItemPatchArgs",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function buildItemPatchArgs in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/chat-intake.ts:splitMutationRemainder",
+      "type": "function",
+      "name": "splitMutationRemainder",
+      "filePath": "src/domain/chat-intake.ts",
+      "summary": "Function splitMutationRemainder in chat-intake.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/domain/document.ts",
+      "type": "file",
+      "name": "document.ts",
+      "filePath": "src/domain/document.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/document.ts:validateDocumentDraft",
+      "type": "function",
+      "name": "validateDocumentDraft",
+      "filePath": "src/domain/document.ts",
+      "summary": "Function validateDocumentDraft in document.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/document.ts:validateSavedDocument",
+      "type": "function",
+      "name": "validateSavedDocument",
+      "filePath": "src/domain/document.ts",
+      "summary": "Function validateSavedDocument in document.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/domain/item.ts",
+      "type": "file",
+      "name": "item.ts",
+      "filePath": "src/domain/item.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/item.ts:validateItemDraft",
+      "type": "function",
+      "name": "validateItemDraft",
+      "filePath": "src/domain/item.ts",
+      "summary": "Function validateItemDraft in item.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/domain/service-event.ts",
+      "type": "file",
+      "name": "service-event.ts",
+      "filePath": "src/domain/service-event.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/service-event.ts:validateServiceEventDraft",
+      "type": "function",
+      "name": "validateServiceEventDraft",
+      "filePath": "src/domain/service-event.ts",
+      "summary": "Function validateServiceEventDraft in service-event.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/service-event.ts:validateSavedServiceEvent",
+      "type": "function",
+      "name": "validateSavedServiceEvent",
+      "filePath": "src/domain/service-event.ts",
+      "summary": "Function validateSavedServiceEvent in service-event.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/domain/warranty.ts",
+      "type": "file",
+      "name": "warranty.ts",
+      "filePath": "src/domain/warranty.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/warranty.ts:calculateWarrantyState",
+      "type": "function",
+      "name": "calculateWarrantyState",
+      "filePath": "src/domain/warranty.ts",
+      "summary": "Function calculateWarrantyState in warranty.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/domain/warranty.ts:addCalendarMonths",
+      "type": "function",
+      "name": "addCalendarMonths",
+      "filePath": "src/domain/warranty.ts",
+      "summary": "Function addCalendarMonths in warranty.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/warranty.ts:parseIsoDateParts",
+      "type": "function",
+      "name": "parseIsoDateParts",
+      "filePath": "src/domain/warranty.ts",
+      "summary": "Function parseIsoDateParts in warranty.ts.",
+      "tags": [
+        "function"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/adapters/documents/local-attachment-storage.test.ts",
+      "type": "file",
+      "name": "local-attachment-storage.test.ts",
+      "filePath": "tests/adapters/documents/local-attachment-storage.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/adapters/json-file-item-repository.test.ts",
+      "type": "file",
+      "name": "json-file-item-repository.test.ts",
+      "filePath": "tests/adapters/json-file-item-repository.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/adapters/sqlite/item-repository.test.ts",
+      "type": "file",
+      "name": "item-repository.test.ts",
+      "filePath": "tests/adapters/sqlite/item-repository.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/application/documents.test.ts",
+      "type": "file",
+      "name": "documents.test.ts",
+      "filePath": "tests/application/documents.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/application/documents.test.ts:createService",
+      "type": "function",
+      "name": "createService",
+      "filePath": "tests/application/documents.test.ts",
+      "summary": "Function createService in documents.test.ts.",
+      "tags": [
+        "test-helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:tests/application/documents.test.ts:MemoryDocumentRepository",
+      "type": "class",
+      "name": "MemoryDocumentRepository",
+      "filePath": "tests/application/documents.test.ts",
+      "summary": "Class MemoryDocumentRepository defined in documents.test.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/application/evidence-pack.test.ts",
+      "type": "file",
+      "name": "evidence-pack.test.ts",
+      "filePath": "tests/application/evidence-pack.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/application/items.test.ts",
+      "type": "file",
+      "name": "items.test.ts",
+      "filePath": "tests/application/items.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:tests/application/items.test.ts:MemoryItemRepository",
+      "type": "class",
+      "name": "MemoryItemRepository",
+      "filePath": "tests/application/items.test.ts",
+      "summary": "Class MemoryItemRepository defined in items.test.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/application/reminders.test.ts",
+      "type": "file",
+      "name": "reminders.test.ts",
+      "filePath": "tests/application/reminders.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/application/service-events.test.ts",
+      "type": "file",
+      "name": "service-events.test.ts",
+      "filePath": "tests/application/service-events.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/application/service-events.test.ts:createService",
+      "type": "function",
+      "name": "createService",
+      "filePath": "tests/application/service-events.test.ts",
+      "summary": "Function createService in service-events.test.ts.",
+      "tags": [
+        "test-helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:tests/application/service-events.test.ts:MemoryServiceEventRepository",
+      "type": "class",
+      "name": "MemoryServiceEventRepository",
+      "filePath": "tests/application/service-events.test.ts",
+      "summary": "Class MemoryServiceEventRepository defined in service-events.test.ts.",
+      "tags": [
+        "class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/cli/chat-intake.test.ts",
+      "type": "file",
+      "name": "chat-intake.test.ts",
+      "filePath": "tests/cli/chat-intake.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/document.test.ts",
+      "type": "file",
+      "name": "document.test.ts",
+      "filePath": "tests/cli/document.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/export.test.ts",
+      "type": "file",
+      "name": "export.test.ts",
+      "filePath": "tests/cli/export.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/item-crud.test.ts",
+      "type": "file",
+      "name": "item-crud.test.ts",
+      "filePath": "tests/cli/item-crud.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/item.test.ts",
+      "type": "file",
+      "name": "item.test.ts",
+      "filePath": "tests/cli/item.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/output-contracts.test.ts",
+      "type": "file",
+      "name": "output-contracts.test.ts",
+      "filePath": "tests/cli/output-contracts.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:tests/cli/program.test.ts",
+      "type": "file",
+      "name": "program.test.ts",
+      "filePath": "tests/cli/program.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/cli/service-event-reminder.test.ts",
+      "type": "file",
+      "name": "service-event-reminder.test.ts",
+      "filePath": "tests/cli/service-event-reminder.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/cli/warranty.test.ts",
+      "type": "file",
+      "name": "warranty.test.ts",
+      "filePath": "tests/cli/warranty.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/domain/chat-intake.test.ts",
+      "type": "file",
+      "name": "chat-intake.test.ts",
+      "filePath": "tests/domain/chat-intake.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/domain/item.test.ts",
+      "type": "file",
+      "name": "item.test.ts",
+      "filePath": "tests/domain/item.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/domain/warranty.test.ts",
+      "type": "file",
+      "name": "warranty.test.ts",
+      "filePath": "tests/domain/warranty.test.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "vitest.config.ts",
+      "summary": "Source file implementing project behavior.",
+      "tags": [
+        "code"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:src/cli/program.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:src/cli/program.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:src/cli/program.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/adapters/documents/json-file-document-repository.ts",
+      "target": "class:src/adapters/documents/json-file-document-repository.ts:JsonFileDocumentRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/documents/json-file-document-repository.ts",
+      "target": "class:src/adapters/documents/json-file-document-repository.ts:JsonFileDocumentRepository",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/documents/local-attachment-storage.ts",
+      "target": "class:src/adapters/documents/local-attachment-storage.ts:LocalAttachmentStorage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/documents/local-attachment-storage.ts",
+      "target": "class:src/adapters/documents/local-attachment-storage.ts:LocalAttachmentStorage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/json-file-item-repository.ts",
+      "target": "class:src/adapters/json-file-item-repository.ts:JsonFileItemRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/json-file-item-repository.ts",
+      "target": "class:src/adapters/json-file-item-repository.ts:JsonFileItemRepository",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/json-file-service-event-repository.ts",
+      "target": "class:src/adapters/json-file-service-event-repository.ts:JsonFileServiceEventRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/json-file-service-event-repository.ts",
+      "target": "class:src/adapters/json-file-service-event-repository.ts:JsonFileServiceEventRepository",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/sqlite/database.ts",
+      "target": "function:src/adapters/sqlite/database.ts:openInventoryDatabase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/sqlite/database.ts",
+      "target": "function:src/adapters/sqlite/database.ts:openInventoryDatabase",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/sqlite/database.ts",
+      "target": "function:src/adapters/sqlite/database.ts:ensureInventorySchema",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/sqlite/database.ts",
+      "target": "function:src/adapters/sqlite/database.ts:ensureInventorySchema",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/adapters/sqlite/item-repository.ts",
+      "target": "function:src/adapters/sqlite/item-repository.ts:rowToItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/sqlite/item-repository.ts",
+      "target": "function:src/adapters/sqlite/item-repository.ts:itemToInsert",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/sqlite/item-repository.ts",
+      "target": "class:src/adapters/sqlite/item-repository.ts:SqliteItemRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/sqlite/item-repository.ts",
+      "target": "class:src/adapters/sqlite/item-repository.ts:SqliteItemRepository",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "function:src/application/documents.ts:createDocumentIngestDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "function:src/application/documents.ts:createDocumentIngestDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "class:src/application/documents.ts:DocumentService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "class:src/application/documents.ts:DocumentService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "class:src/application/documents.ts:NoopOcrProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "class:src/application/documents.ts:NoopOcrProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/exporters/evidence-pack.ts",
+      "target": "function:src/application/exporters/evidence-pack.ts:exportEvidencePack",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/exporters/evidence-pack.ts",
+      "target": "function:src/application/exporters/evidence-pack.ts:exportEvidencePack",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/exporters/evidence-pack.ts",
+      "target": "function:src/application/exporters/evidence-pack.ts:formatEvidencePackForTelegram",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/exporters/evidence-pack.ts",
+      "target": "function:src/application/exporters/evidence-pack.ts:formatEvidencePackForTelegram",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "function:src/application/items.ts:resolveSingleTarget",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "function:src/application/items.ts:resolveSingleTarget",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "function:src/application/items.ts:itemMatchesQuery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "class:src/application/items.ts:ItemService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "class:src/application/items.ts:ItemService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/reminders.ts",
+      "target": "function:src/application/reminders.ts:calculateDueReminders",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/reminders.ts",
+      "target": "function:src/application/reminders.ts:calculateDueReminders",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/application/service-events.ts",
+      "target": "class:src/application/service-events.ts:ServiceEventService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/application/service-events.ts",
+      "target": "class:src/application/service-events.ts:ServiceEventService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:createProgram",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:createProgram",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:formatChatParseText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:applyChatMutation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:isChatItemDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:chatDraftToItemInput",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:serviceEventInputFromOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:itemInputFromOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:mutationPlan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:withMutationMetadata",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:runItemAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:itemErrorPayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:runDocumentAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:runSimpleAction",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "function:src/cli/program.ts:writeRunArtifact",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItemIntent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItemIntent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItemMutationIntent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItemMutationIntent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:parseChatItemPatch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:inferName",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:inferCategory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:inferBrand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:inferPrice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:normalizeCurrency",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:buildItemAddArgs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:buildItemPatchArgs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "function:src/domain/chat-intake.ts:splitMutationRemainder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/document.ts",
+      "target": "function:src/domain/document.ts:validateDocumentDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/document.ts",
+      "target": "function:src/domain/document.ts:validateDocumentDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/document.ts",
+      "target": "function:src/domain/document.ts:validateSavedDocument",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/document.ts",
+      "target": "function:src/domain/document.ts:validateSavedDocument",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/item.ts",
+      "target": "function:src/domain/item.ts:validateItemDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/item.ts",
+      "target": "function:src/domain/item.ts:validateItemDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/service-event.ts",
+      "target": "function:src/domain/service-event.ts:validateServiceEventDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/service-event.ts",
+      "target": "function:src/domain/service-event.ts:validateServiceEventDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/service-event.ts",
+      "target": "function:src/domain/service-event.ts:validateSavedServiceEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/service-event.ts",
+      "target": "function:src/domain/service-event.ts:validateSavedServiceEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "function:src/domain/warranty.ts:calculateWarrantyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "function:src/domain/warranty.ts:calculateWarrantyState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "function:src/domain/warranty.ts:addCalendarMonths",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "function:src/domain/warranty.ts:addCalendarMonths",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "function:src/domain/warranty.ts:parseIsoDateParts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/application/documents.test.ts",
+      "target": "function:tests/application/documents.test.ts:createService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/application/documents.test.ts",
+      "target": "class:tests/application/documents.test.ts:MemoryDocumentRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/application/items.test.ts",
+      "target": "class:tests/application/items.test.ts:MemoryItemRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/application/service-events.test.ts",
+      "target": "function:tests/application/service-events.test.ts:createService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/application/service-events.test.ts",
+      "target": "class:tests/application/service-events.test.ts:MemoryServiceEventRepository",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/adapters/documents/local-attachment-storage.ts",
+      "target": "file:tests/adapters/documents/local-attachment-storage.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/adapters/json-file-item-repository.ts",
+      "target": "file:tests/adapters/json-file-item-repository.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/adapters/sqlite/item-repository.ts",
+      "target": "file:tests/adapters/sqlite/item-repository.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/application/documents.ts",
+      "target": "file:tests/application/documents.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/application/items.ts",
+      "target": "file:tests/application/items.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/application/reminders.ts",
+      "target": "file:tests/application/reminders.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/application/service-events.ts",
+      "target": "file:tests/application/service-events.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/cli/program.ts",
+      "target": "file:tests/cli/program.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/domain/chat-intake.ts",
+      "target": "file:tests/domain/chat-intake.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/domain/item.ts",
+      "target": "file:tests/domain/item.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    },
+    {
+      "source": "file:src/domain/warranty.ts",
+      "target": "file:tests/domain/warranty.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5,
+      "description": "Path-based pairing (deterministic)"
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:project-docs",
+      "name": "Project Docs",
+      "description": "Repository documentation, specs, and skill guidance.",
+      "nodeIds": [
+        "document:AGENTS.md",
+        "document:docs/specs/chat-intake.md",
+        "document:docs/specs/ci-workflow.md",
+        "document:docs/specs/document-attachment-ocr-draft.md",
+        "document:docs/specs/evidence-pack-export.md",
+        "document:docs/specs/item-domain.md",
+        "document:docs/specs/item-json-crud.md",
+        "document:docs/specs/item-sqlite-persistence.md",
+        "document:docs/specs/local-backup-restore.md",
+        "document:docs/specs/openclaw-skill-wrapper.md",
+        "document:docs/specs/service-events-reminders.md",
+        "document:docs/specs/warranty-state.md",
+        "document:README.md",
+        "document:skills/inventory/SKILL.md"
+      ]
+    },
+    {
+      "id": "layer:project-config",
+      "name": "Project Config",
+      "description": "Build, toolchain, and CI configuration files.",
+      "nodeIds": [
+        "config:package.json",
+        "config:tsconfig.json",
+        "document:.learnings/ERRORS.md",
+        "file:.understand-anything/.understandignore",
+        "file:scripts/preflight.sh",
+        "file:vitest.config.ts",
+        "pipeline:.github/workflows/ci.yml"
+      ]
+    },
+    {
+      "id": "layer:domain-model",
+      "name": "Domain Model",
+      "description": "Core inventory domain entities and business rules.",
+      "nodeIds": [
+        "file:src/domain/chat-intake.ts",
+        "file:src/domain/document.ts",
+        "file:src/domain/item.ts",
+        "file:src/domain/service-event.ts",
+        "file:src/domain/warranty.ts"
+      ]
+    },
+    {
+      "id": "layer:application-services",
+      "name": "Application Services",
+      "description": "Use-case orchestration and application-level services.",
+      "nodeIds": [
+        "file:src/application/documents.ts",
+        "file:src/application/exporters/evidence-pack.ts",
+        "file:src/application/items.ts",
+        "file:src/application/reminders.ts",
+        "file:src/application/service-events.ts"
+      ]
+    },
+    {
+      "id": "layer:infrastructure-adapters",
+      "name": "Infrastructure Adapters",
+      "description": "Persistence and external integration adapters.",
+      "nodeIds": [
+        "file:src/adapters/documents/json-file-document-repository.ts",
+        "file:src/adapters/documents/local-attachment-storage.ts",
+        "file:src/adapters/json-file-item-repository.ts",
+        "file:src/adapters/json-file-service-event-repository.ts",
+        "file:src/adapters/sqlite/database.ts",
+        "file:src/adapters/sqlite/item-repository.ts",
+        "file:src/adapters/sqlite/schema.ts"
+      ]
+    },
+    {
+      "id": "layer:cli-interface",
+      "name": "CLI Interface",
+      "description": "Command-line entry points and command orchestration.",
+      "nodeIds": [
+        "file:src/cli/index.ts",
+        "file:src/cli/program.ts"
+      ]
+    },
+    {
+      "id": "layer:test-suite",
+      "name": "Test Suite",
+      "description": "Automated tests validating domain, application, adapter, and CLI behavior.",
+      "nodeIds": [
+        "file:tests/adapters/documents/local-attachment-storage.test.ts",
+        "file:tests/adapters/json-file-item-repository.test.ts",
+        "file:tests/adapters/sqlite/item-repository.test.ts",
+        "file:tests/application/documents.test.ts",
+        "file:tests/application/evidence-pack.test.ts",
+        "file:tests/application/items.test.ts",
+        "file:tests/application/reminders.test.ts",
+        "file:tests/application/service-events.test.ts",
+        "file:tests/cli/chat-intake.test.ts",
+        "file:tests/cli/document.test.ts",
+        "file:tests/cli/export.test.ts",
+        "file:tests/cli/item-crud.test.ts",
+        "file:tests/cli/item.test.ts",
+        "file:tests/cli/output-contracts.test.ts",
+        "file:tests/cli/program.test.ts",
+        "file:tests/cli/service-event-reminder.test.ts",
+        "file:tests/cli/warranty.test.ts",
+        "file:tests/domain/chat-intake.test.ts",
+        "file:tests/domain/item.test.ts",
+        "file:tests/domain/warranty.test.ts"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with repository documentation to understand scope, constraints, and user-facing workflows.",
+      "nodeIds": [
+        "document:README.md",
+        "document:AGENTS.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "CLI Entry Flow",
+      "description": "Follow how command parsing starts and routes to concrete inventory operations.",
+      "nodeIds": [
+        "file:src/cli/index.ts",
+        "file:src/cli/program.ts"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Domain Contracts",
+      "description": "Inspect domain schemas and warranty logic that enforce invariants for item and service data.",
+      "nodeIds": [
+        "file:src/domain/item.ts",
+        "file:src/domain/service-event.ts",
+        "file:src/domain/document.ts",
+        "file:src/domain/warranty.ts"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Chat Intake Parsing",
+      "description": "Review natural-language intake parsing for command drafts and intent resolution.",
+      "nodeIds": [
+        "file:src/domain/chat-intake.ts"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Application Services",
+      "description": "See use-case orchestration for items, documents, reminders, service events, and evidence exports.",
+      "nodeIds": [
+        "file:src/application/items.ts",
+        "file:src/application/documents.ts",
+        "file:src/application/service-events.ts",
+        "file:src/application/reminders.ts",
+        "file:src/application/exporters/evidence-pack.ts"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Persistence Adapters",
+      "description": "Compare JSON and SQLite adapters and inspect schema/database setup.",
+      "nodeIds": [
+        "file:src/adapters/json-file-item-repository.ts",
+        "file:src/adapters/json-file-service-event-repository.ts",
+        "file:src/adapters/documents/json-file-document-repository.ts",
+        "file:src/adapters/sqlite/database.ts",
+        "file:src/adapters/sqlite/item-repository.ts",
+        "file:src/adapters/sqlite/schema.ts"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Attachment Storage",
+      "description": "Understand local attachment handling and document storage integration points.",
+      "nodeIds": [
+        "file:src/adapters/documents/local-attachment-storage.ts",
+        "file:src/application/documents.ts"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Behavior Verification",
+      "description": "Use the test suite to confirm domain rules, command contracts, and adapter behavior.",
+      "nodeIds": [
+        "file:tests/domain/item.test.ts",
+        "file:tests/domain/warranty.test.ts",
+        "file:tests/application/items.test.ts",
+        "file:tests/cli/program.test.ts"
+      ]
+    }
+  ]
+}
