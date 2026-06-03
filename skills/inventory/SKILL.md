@@ -33,28 +33,33 @@ Default local data paths:
 8. If a target is ambiguous, do not mutate. Show the likely candidates and ask one short clarification.
 9. Document OCR is only a draft contract for now. `document ingest-draft` uses the noop OCR provider and should be described as not yet Apple Vision-backed.
 10. Evidence packs are local folders. Tell the user the output path and include the manifest path.
-11. Run `./scripts/preflight.sh` after code or skill changes that affect the inventory app.
+11. Use `--dry-run --format json` before risky direct mutations when the user asks to preview, when scope is broad, or when operating from automation. Dry-run JSON includes `scope`, `plannedOperations`, `sideEffects`, and `warnings`.
+12. Use `--artifact-dir <dir>` when provenance matters. Mutation success, dry-run, and typed errors write a compact run receipt, and JSON output includes `artifactPath`.
+13. `capabilities --format json` is available for machine-readable command discovery.
+14. Run `./scripts/preflight.sh` after code or skill changes that affect the inventory app.
 
 ## Common Commands
 
 ```bash
 node dist/cli/index.js item add --name "MacBook Pro" --category laptop --brand Apple --serial C02XXX --warranty-end 2027-05-30 --format json
+node dist/cli/index.js capabilities --format json
 node dist/cli/index.js chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房" --format json
 node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --format json
 node dist/cli/index.js chat items "搵 MacBook" --format json
-node dist/cli/index.js chat mutate "edit MacBook 改做 location: 書房" --format json
+node dist/cli/index.js chat mutate "edit MacBook 改做 location: 書房" --dry-run --artifact-dir /tmp/inventory-runs --format json
 node dist/cli/index.js item list --format json
 node dist/cli/index.js item detail itm_123 --format json
-node dist/cli/index.js item edit itm_123 --location Study --format json
-node dist/cli/index.js item delete itm_123 --format json
-node dist/cli/index.js item restore itm_123 --format json
+node dist/cli/index.js item edit itm_123 --location Study --dry-run --format json
+node dist/cli/index.js item delete itm_123 --dry-run --format json
+node dist/cli/index.js item restore itm_123 --dry-run --format json
 node dist/cli/index.js warranty check --warranty-end 2027-05-30 --format json
-node dist/cli/index.js document attach --item itm_123 --path /path/to/receipt.jpg --kind receipt --format json
+node dist/cli/index.js document attach --item itm_123 --path /path/to/receipt.jpg --kind receipt --dry-run --format json
 node dist/cli/index.js document list --item itm_123 --format json
 node dist/cli/index.js document ingest-draft --item itm_123 --path /path/to/warranty.pdf --kind warranty --format json
-node dist/cli/index.js service-event add --item itm_123 --kind maintenance --title "Clean keyboard" --due-on 2026-06-05 --format json
+node dist/cli/index.js service-event add --item itm_123 --kind maintenance --title "Clean keyboard" --due-on 2026-06-05 --dry-run --format json
 node dist/cli/index.js service-event list --item itm_123 --format json
 node dist/cli/index.js reminder due --within 45d --format json
+node dist/cli/index.js export evidence-pack --item itm_123 --output /tmp/macbook-evidence --dry-run --format json
 node dist/cli/index.js export evidence-pack --item itm_123 --output /tmp/macbook-evidence --format telegram
 ./scripts/preflight.sh
 ```

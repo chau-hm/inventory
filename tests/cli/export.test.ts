@@ -126,8 +126,62 @@ describe("export evidence-pack command", () => {
     await expect(readFile(manifest.files[0].copiedPath, "utf8")).resolves.toBe("receipt");
   });
 
+  it("previews evidence-pack export without writing the output folder", async () => {
+    await run(
+      "item",
+      "add",
+      "--store",
+      itemStore,
+      "--name",
+      "MacBook Pro",
+      "--category",
+      "laptop",
+      "--format",
+      "json"
+    );
+    const itemId = (JSON.parse(output.pop() ?? "{}") as { item: { id: string } }).item.id;
+
+    await run(
+      "export",
+      "evidence-pack",
+      "--item",
+      itemId,
+      "--output",
+      outputDir,
+      "--store",
+      itemStore,
+      "--documents-store",
+      documentStore,
+      "--attachments-dir",
+      attachmentsDir,
+      "--events-store",
+      eventStore,
+      "--dry-run",
+      "--format",
+      "json"
+    );
+
+    expect(JSON.parse(output.pop() ?? "{}")).toMatchObject({
+      ok: true,
+      dryRun: true,
+      command: "export.evidence-pack",
+      scope: { itemId, outputDir },
+      plannedOperations: [
+        {
+          action: "export_evidence_pack",
+          itemId,
+          documentCount: 0,
+          serviceEventCount: 0,
+          outputDir
+        }
+      ],
+      sideEffects: []
+    });
+
+    await expect(readFile(join(outputDir, "evidence-pack.json"), "utf8")).rejects.toThrow();
+  });
+
   async function run(...args: string[]): Promise<void> {
     await createProgram().parseAsync(["node", "inventory", ...args], { from: "node" });
   }
 });
-

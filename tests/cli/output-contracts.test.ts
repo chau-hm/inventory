@@ -1,4 +1,4 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -166,6 +166,127 @@ describe("CLI output contracts", () => {
         { kind: "service_event_due", dedupeKey: expect.stringMatching(/^service-event:/) },
         { kind: "warranty_expiring", dedupeKey: `warranty:${item.item.id}:2026-06-10` }
       ]
+    });
+  });
+
+  it("exposes machine-readable capabilities for agent callers", async () => {
+    await run("capabilities", "--format", "json");
+
+    expect(JSON.parse(output.at(-1) ?? "{}")).toMatchObject({
+      ok: true,
+      app: "inventory-control",
+      guarantees: {
+        structuredJson: true,
+        typedErrors: true,
+        dryRun: true,
+        explicitScopeInJson: true
+      },
+      commands: expect.arrayContaining([
+        expect.objectContaining({ path: "item add", mutates: true, dryRun: true }),
+        expect.objectContaining({ path: "export evidence-pack", mutates: true, dryRun: true })
+      ])
+    });
+  });
+
+  it("previews item add without writing to the store", async () => {
+    await run(
+      "item",
+      "add",
+      "--store",
+      storePath,
+      "--name",
+      "MacBook Pro",
+      "--category",
+      "laptop",
+      "--dry-run",
+      "--format",
+      "json"
+    );
+
+    expect(JSON.parse(output.at(-1) ?? "{}")).toMatchObject({
+      ok: true,
+      dryRun: true,
+      command: "item.add",
+      scope: { storage: "json-file", store: storePath },
+      plannedOperations: [{ action: "add_item", item: { name: "MacBook Pro", category: "laptop" } }],
+      sideEffects: [],
+      warnings: []
+    });
+
+    await run("item", "list", "--store", storePath, "--format", "json");
+    expect(JSON.parse(output.at(-1) ?? "{}")).toMatchObject({ ok: true, items: [] });
+  });
+
+  it("writes a run artifact for dry-run mutation previews", async () => {
+    const artifactDir = join(tempDir, "artifacts");
+
+    await run(
+      "item",
+      "add",
+      "--store",
+      storePath,
+      "--name",
+      "MacBook Pro",
+      "--category",
+      "laptop",
+      "--dry-run",
+      "--artifact-dir",
+      artifactDir,
+      "--format",
+      "json"
+    );
+
+    const result = JSON.parse(output.at(-1) ?? "{}");
+    expect(result).toMatchObject({
+      ok: true,
+      dryRun: true,
+      command: "item.add",
+      artifactPath: expect.stringContaining(artifactDir)
+    });
+
+    const artifact = JSON.parse(await readFile(result.artifactPath, "utf8"));
+    expect(artifact).toMatchObject({
+      app: "inventory-control",
+      version: expect.any(String),
+      createdAt: expect.any(String),
+      result: {
+        ok: true,
+        dryRun: true,
+        command: "item.add",
+        plannedOperations: [{ action: "add_item" }]
+      }
+    });
+  });
+
+  it("writes a run artifact for typed mutation errors", async () => {
+    const artifactDir = join(tempDir, "error-artifacts");
+
+    await run(
+      "item",
+      "delete",
+      "missing",
+      "--store",
+      storePath,
+      "--artifact-dir",
+      artifactDir,
+      "--format",
+      "json"
+    );
+
+    const result = JSON.parse(output.at(-1) ?? "{}");
+    expect(result).toMatchObject({
+      ok: false,
+      error: { code: "ITEM_NOT_FOUND" },
+      artifactPath: expect.stringContaining(artifactDir)
+    });
+    expect(process.exitCode).toBe(1);
+
+    const artifact = JSON.parse(await readFile(result.artifactPath, "utf8"));
+    expect(artifact).toMatchObject({
+      result: {
+        ok: false,
+        error: { code: "ITEM_NOT_FOUND", candidates: [] }
+      }
     });
   });
 

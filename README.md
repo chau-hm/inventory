@@ -18,6 +18,7 @@ Agent-native personal inventory control app. The MVP is a TypeScript CLI intende
 - OCR ingest draft contract. Apple Vision OCR integration is planned later.
 - Service timeline events and deterministic due reminder output.
 - Evidence-pack export for warranty claims or resale handoff.
+- Agent-first CLI contracts: machine-readable capabilities, mutation dry-runs, typed JSON errors, explicit scope/side-effect metadata, and optional run receipts via `--artifact-dir`.
 - OpenClaw skill wrapper for Telegram `/inventory` and natural-language chat workflows.
 
 ## Telegram Slash Command Examples
@@ -145,26 +146,30 @@ npm test
 ```bash
 node dist/cli/index.js health
 node dist/cli/index.js health --format json
+node dist/cli/index.js capabilities --format json
 node dist/cli/index.js chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房" --format json
 node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --format json
+node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --dry-run --format json
 node dist/cli/index.js chat items "搵 MacBook" --format json
-node dist/cli/index.js chat mutate "edit MacBook 改做 location: 書房" --format json
+node dist/cli/index.js chat mutate "edit MacBook 改做 location: 書房" --dry-run --format json
 node dist/cli/index.js item validate --name "MacBook Pro" --category laptop
 node dist/cli/index.js item validate --name "AirPods Pro" --category audio --purchase-price-minor 189900 --currency HKD --format json
+node dist/cli/index.js item add --name "MacBook Pro" --category laptop --store /tmp/inventory-items.json --dry-run --artifact-dir /tmp/inventory-runs --format json
 node dist/cli/index.js item add --name "MacBook Pro" --category laptop --store /tmp/inventory-items.json
 node dist/cli/index.js item list --store /tmp/inventory-items.json
 node dist/cli/index.js item detail "MacBook" --store /tmp/inventory-items.json
-node dist/cli/index.js item edit "MacBook" --location Study --store /tmp/inventory-items.json
-node dist/cli/index.js item delete "MacBook" --store /tmp/inventory-items.json
-node dist/cli/index.js item restore "MacBook" --store /tmp/inventory-items.json
+node dist/cli/index.js item edit "MacBook" --location Study --store /tmp/inventory-items.json --dry-run --format json
+node dist/cli/index.js item delete "MacBook" --store /tmp/inventory-items.json --dry-run --format json
+node dist/cli/index.js item restore "MacBook" --store /tmp/inventory-items.json --dry-run --format json
 node dist/cli/index.js item add --name "Nintendo Switch" --category console --db /tmp/inventory.sqlite
 node dist/cli/index.js item list --db /tmp/inventory.sqlite --format json
-node dist/cli/index.js document attach --item itm_123 --path ./receipt.jpg --kind receipt --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments
+node dist/cli/index.js document attach --item itm_123 --path ./receipt.jpg --kind receipt --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments --dry-run --format json
 node dist/cli/index.js document list --item itm_123 --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments
 node dist/cli/index.js document ingest-draft --item itm_123 --path ./warranty.pdf --kind warranty --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments --format json
-node dist/cli/index.js service-event add --item itm_123 --kind maintenance --title "Clean keyboard" --due-on 2026-06-05 --events-store /tmp/inventory-events.json
+node dist/cli/index.js service-event add --item itm_123 --kind maintenance --title "Clean keyboard" --due-on 2026-06-05 --events-store /tmp/inventory-events.json --dry-run --format json
 node dist/cli/index.js service-event list --item itm_123 --events-store /tmp/inventory-events.json --format json
 node dist/cli/index.js reminder due --store /tmp/inventory-items.json --events-store /tmp/inventory-events.json --as-of 2026-05-30 --within 45d --format json
+node dist/cli/index.js export evidence-pack --item itm_123 --output /tmp/macbook-evidence --store /tmp/inventory-items.json --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments --events-store /tmp/inventory-events.json --dry-run --artifact-dir /tmp/inventory-runs --format json
 node dist/cli/index.js export evidence-pack --item itm_123 --output /tmp/macbook-evidence --store /tmp/inventory-items.json --documents-store /tmp/inventory-documents.json --attachments-dir /tmp/inventory-attachments --events-store /tmp/inventory-events.json --format telegram
 node dist/cli/index.js warranty check --warranty-end 2026-12-31 --as-of 2026-05-30
 node dist/cli/index.js warranty check --purchase-date 2026-05-30 --warranty-months 24 --as-of 2026-05-30 --format json

@@ -1,3 +1,4 @@
+import { mkdir, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { Command } from "commander";
@@ -46,6 +47,52 @@ export function createProgram(): Command {
       console.log(`inventory-control ${cliVersion} ok`);
     });
 
+  program
+    .command("capabilities")
+    .description("Print machine-readable command capabilities for agent callers")
+    .option("--format <format>", "Output format: text or json", "text")
+    .action((options: { format: string }) => {
+      const capabilities = {
+        ok: true,
+        app: "inventory-control",
+        version: cliVersion,
+        formats: ["text", "json"],
+        guarantees: {
+          structuredJson: true,
+          typedErrors: true,
+          dryRun: true,
+          runArtifacts: true,
+          explicitScopeInJson: true,
+          stableIds: true
+        },
+        commands: [
+          { path: "chat parse", mutates: false, dryRun: false, scope: [] },
+          { path: "chat items", mutates: false, dryRun: false, scope: ["itemStore"] },
+          { path: "chat mutate", mutates: true, dryRun: true, scope: ["itemStore", "target"] },
+          { path: "chat confirm", mutates: true, dryRun: true, scope: ["itemStore"] },
+          { path: "item add", mutates: true, dryRun: true, scope: ["itemStore"] },
+          { path: "item list", mutates: false, dryRun: false, scope: ["itemStore"] },
+          { path: "item detail", mutates: false, dryRun: false, scope: ["itemStore", "target"] },
+          { path: "item edit", mutates: true, dryRun: true, scope: ["itemStore", "target"] },
+          { path: "item delete", mutates: true, dryRun: true, scope: ["itemStore", "target"] },
+          { path: "item restore", mutates: true, dryRun: true, scope: ["itemStore", "target"] },
+          { path: "document attach", mutates: true, dryRun: true, scope: ["documentsStore", "attachmentsDir", "itemId", "sourcePath"] },
+          { path: "document delete", mutates: true, dryRun: true, scope: ["documentsStore", "attachmentsDir", "documentId"] },
+          { path: "document ingest-draft", mutates: true, dryRun: true, scope: ["documentsStore", "attachmentsDir", "itemId", "sourcePath"] },
+          { path: "service-event add", mutates: true, dryRun: true, scope: ["eventsStore", "itemId"] },
+          { path: "service-event delete", mutates: true, dryRun: true, scope: ["eventsStore", "eventId"] },
+          { path: "export evidence-pack", mutates: true, dryRun: true, scope: ["itemStore", "documentsStore", "attachmentsDir", "eventsStore", "outputDir"] }
+        ]
+      };
+
+      if (options.format === "json") {
+        console.log(JSON.stringify(capabilities));
+        return;
+      }
+
+      console.log(`inventory-control ${cliVersion}: JSON, typed errors, dry-run, and explicit scope supported`);
+    });
+
   const chat = program.command("chat").description("Natural-language chat intake commands");
 
   chat
@@ -92,9 +139,11 @@ export function createProgram(): Command {
     .argument("<text...>", "Natural-language mutation text")
     .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--dry-run", "Preview the mutation without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (textParts: string[], options: ItemStoreOptions & { format: string }) => {
-      await runItemAction(options.format, async () => {
+    .action(async (textParts: string[], options: ItemStoreOptions & ArtifactOptions & { dryRun?: boolean; format: string }) => {
+      await runItemAction(options, async () => {
         const intent = parseChatItemMutationIntent(textParts.join(" "));
         if (intent.kind === "needs_clarification") {
           if (options.format === "json") {
@@ -104,8 +153,22 @@ export function createProgram(): Command {
         }
 
         const service = createItemService(options);
+        if (options.dryRun === true) {
+          const target = await service.detail(intent.target);
+          const result = mutationPlan("chat.mutate", itemScope(options, target.id), [
+            { action: intent.action, targetId: target.id, patch: "patch" in intent ? intent.patch : undefined }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: ${intent.action} ${target.id} ${target.name}`;
+        }
         const item = await applyChatMutation(service, intent);
-        const result = { kind: "updated_item" as const, action: intent.action, item };
+        const result = withMutationMetadata(
+          { kind: "updated_item" as const, action: intent.action, item },
+          itemScope(options, item.id),
+          [{ action: intent.action, targetId: item.id }]
+        );
         if (options.format === "json") {
           return result;
         }
@@ -119,12 +182,27 @@ export function createProgram(): Command {
     .requiredOption("--draft-json <json>", "Draft JSON from chat parse")
     .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--dry-run", "Preview the save without writing")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (options: ItemStoreOptions & { draftJson: string; format: string }) => {
-      await runItemAction(options.format, async () => {
+    .action(async (options: ItemStoreOptions & ArtifactOptions & { draftJson: string; dryRun?: boolean; format: string }) => {
+      await runItemAction(options, async () => {
         const draft = parseChatDraftJson(options.draftJson);
+        if (options.dryRun === true) {
+          const result = mutationPlan("chat.confirm", itemScope(options), [
+            { action: "add_item", item: chatDraftToItemInput(draft) }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: confirm ${draft.name} (${draft.category})`;
+        }
         const saved = await createItemService(options).add(chatDraftToItemInput(draft));
-        const result = { kind: "confirmed_item" as const, item: saved };
+        const result = withMutationMetadata(
+          { kind: "confirmed_item" as const, item: saved },
+          itemScope(options, saved.id),
+          [{ action: "add_item", itemId: saved.id }]
+        );
         if (options.format === "json") {
           return result;
         }
@@ -154,13 +232,23 @@ export function createProgram(): Command {
     .option("--warranty-end <date>", "Warranty end date in YYYY-MM-DD format")
     .option("--warranty-months <months>", "Warranty duration in whole months")
     .option("--notes <notes>", "Notes")
+    .option("--dry-run", "Preview the add without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (options: ItemCommandOptions) => {
-      await runItemAction(options.format, async () => {
+      await runItemAction(options, async () => {
+        if (options.dryRun === true) {
+          const draft = validateItemDraft(itemInputFromOptions(options));
+          const result = mutationPlan("item.add", itemScope(options), [{ action: "add_item", item: draft }]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: add ${draft.name} (${draft.category})`;
+        }
         const service = createItemService(options);
         const saved = await service.add(itemInputFromOptions(options));
         if (options.format === "json") {
-          return { ok: true, item: saved };
+          return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "add_item", itemId: saved.id }]);
         }
         return `Item added: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
       });
@@ -226,13 +314,24 @@ export function createProgram(): Command {
     .option("--warranty-end <date>", "Warranty end date in YYYY-MM-DD format")
     .option("--warranty-months <months>", "Warranty duration in whole months")
     .option("--notes <notes>", "Notes")
+    .option("--dry-run", "Preview the edit without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (target: string, options: ItemCommandOptions) => {
-      await runItemAction(options.format, async () => {
+      await runItemAction(options, async () => {
         const service = createItemService(options);
+        if (options.dryRun === true) {
+          const saved = await service.detail(target);
+          const patch = itemPatchFromOptions(options);
+          const result = mutationPlan("item.edit", itemScope(options, saved.id), [{ action: "edit_item", targetId: saved.id, patch }]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: edit ${saved.id} ${saved.name}`;
+        }
         const saved = await service.edit(target, itemPatchFromOptions(options));
         if (options.format === "json") {
-          return { ok: true, item: saved };
+          return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "edit_item", targetId: saved.id }]);
         }
         return `Item updated: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
       });
@@ -244,13 +343,23 @@ export function createProgram(): Command {
     .argument("<target>", "Item ID or search text")
     .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--dry-run", "Preview the delete without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (target: string, options: ItemStoreOptions & { format: string }) => {
-      await runItemAction(options.format, async () => {
+    .action(async (target: string, options: ItemStoreOptions & ArtifactOptions & { dryRun?: boolean; format: string }) => {
+      await runItemAction(options, async () => {
         const service = createItemService(options);
+        if (options.dryRun === true) {
+          const saved = await service.detail(target);
+          const result = mutationPlan("item.delete", itemScope(options, saved.id), [{ action: "delete_item", targetId: saved.id }]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: delete ${saved.id} ${saved.name}`;
+        }
         const saved = await service.delete(target);
         if (options.format === "json") {
-          return { ok: true, item: saved };
+          return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "delete_item", targetId: saved.id }]);
         }
         return `Item deleted: ${saved.id} ${saved.name}`;
       });
@@ -262,13 +371,23 @@ export function createProgram(): Command {
     .argument("<target>", "Item ID or search text")
     .option("--db <path>", "SQLite inventory database path")
     .option("--store <path>", "JSON item store path", defaultItemStorePath())
+    .option("--dry-run", "Preview the restore without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (target: string, options: ItemStoreOptions & { format: string }) => {
-      await runItemAction(options.format, async () => {
+    .action(async (target: string, options: ItemStoreOptions & ArtifactOptions & { dryRun?: boolean; format: string }) => {
+      await runItemAction(options, async () => {
         const service = createItemService(options);
+        if (options.dryRun === true) {
+          const saved = await service.detail(target);
+          const result = mutationPlan("item.restore", itemScope(options, saved.id), [{ action: "restore_item", targetId: saved.id }]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: restore ${saved.id} ${saved.name}`;
+        }
         const saved = await service.restore(target);
         if (options.format === "json") {
-          return { ok: true, item: saved };
+          return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "restore_item", targetId: saved.id }]);
         }
         return `Item restored: ${saved.id} ${saved.name}`;
       });
@@ -358,13 +477,26 @@ export function createProgram(): Command {
     .option("--notes <notes>", "Document notes")
     .option("--documents-store <path>", "Document metadata store path", defaultDocumentStorePath())
     .option("--attachments-dir <path>", "Attachment storage directory", defaultAttachmentsDir())
+    .option("--dry-run", "Preview the attach without copying or saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (options: DocumentCommandOptions) => {
-      await runDocumentAction(options.format, async () => {
+      await runDocumentAction(options, async () => {
+        if (options.dryRun === true) {
+          const result = mutationPlan("document.attach", documentScope(options), [
+            { action: "attach_document", itemId: options.item, sourcePath: options.path, kind: options.kind }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: attach ${options.kind} -> ${options.item}`;
+        }
         const service = createDocumentService(options);
         const saved = await service.attach(documentInputFromOptions(options));
         if (options.format === "json") {
-          return { ok: true, document: saved };
+          return withMutationMetadata({ ok: true, document: saved }, documentScope(options, saved.id), [
+            { action: "attach_document", documentId: saved.id, itemId: saved.itemId }
+          ]);
         }
         return `Document attached: ${saved.id} ${saved.kind} -> ${saved.itemId}`;
       });
@@ -397,13 +529,26 @@ export function createProgram(): Command {
     .argument("<documentId>", "Document ID")
     .option("--documents-store <path>", "Document metadata store path", defaultDocumentStorePath())
     .option("--attachments-dir <path>", "Attachment storage directory", defaultAttachmentsDir())
+    .option("--dry-run", "Preview the delete without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (documentId: string, options: DocumentStoreOptions & { format: string }) => {
-      await runDocumentAction(options.format, async () => {
+    .action(async (documentId: string, options: DocumentStoreOptions & ArtifactOptions & { dryRun?: boolean; format: string }) => {
+      await runDocumentAction(options, async () => {
+        if (options.dryRun === true) {
+          const result = mutationPlan("document.delete", documentScope(options, documentId), [
+            { action: "delete_document", documentId }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: delete document ${documentId}`;
+        }
         const service = createDocumentService(options);
         const deleted = await service.delete(documentId);
         if (options.format === "json") {
-          return { ok: true, document: deleted };
+          return withMutationMetadata({ ok: true, document: deleted }, documentScope(options, deleted.id), [
+            { action: "delete_document", documentId: deleted.id }
+          ]);
         }
         return `Document deleted: ${deleted.id}`;
       });
@@ -419,14 +564,29 @@ export function createProgram(): Command {
     .option("--notes <notes>", "Document notes")
     .option("--documents-store <path>", "Document metadata store path", defaultDocumentStorePath())
     .option("--attachments-dir <path>", "Attachment storage directory", defaultAttachmentsDir())
+    .option("--dry-run", "Preview the ingest without copying or saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (options: DocumentCommandOptions) => {
-      await runDocumentAction(options.format, async () => {
+      await runDocumentAction(options, async () => {
+        if (options.dryRun === true) {
+          const result = mutationPlan("document.ingest-draft", documentScope(options), [
+            { action: "attach_document", itemId: options.item, sourcePath: options.path, kind: options.kind },
+            { action: "create_ocr_draft", provider: "noop" }
+          ], ["OCR provider is not configured for this draft."]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: ingest draft ${options.kind} -> ${options.item}`;
+        }
         const service = createDocumentService(options);
         const saved = await service.attach(documentInputFromOptions(options));
         const draft = await createDocumentIngestDraft({ document: saved, provider: new NoopOcrProvider() });
         if (options.format === "json") {
-          return { ok: true, document: saved, draft };
+          return withMutationMetadata({ ok: true, document: saved, draft }, documentScope(options, saved.id), [
+            { action: "attach_document", documentId: saved.id, itemId: saved.itemId },
+            { action: "create_ocr_draft", documentId: saved.id, provider: "noop" }
+          ], draft.warnings);
         }
         return `Document draft created: ${saved.id} ${saved.kind} (${draft.warnings.join("; ")})`;
       });
@@ -444,12 +604,25 @@ export function createProgram(): Command {
     .option("--due-on <date>", "Due date in YYYY-MM-DD format")
     .option("--notes <notes>", "Notes")
     .option("--events-store <path>", "Service event metadata store path", defaultServiceEventStorePath())
+    .option("--dry-run", "Preview the service event without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
     .action(async (options: ServiceEventCommandOptions) => {
-      await runSimpleAction(options.format, "SERVICE_EVENT_COMMAND_FAILED", async () => {
+      await runSimpleAction(options, "SERVICE_EVENT_COMMAND_FAILED", async () => {
+        if (options.dryRun === true) {
+          const result = mutationPlan("service-event.add", serviceEventScope(options), [
+            { action: "add_service_event", event: serviceEventInputFromOptions(options) }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: add service event ${options.title} -> ${options.item}`;
+        }
         const event = await createServiceEventService(options).add(serviceEventInputFromOptions(options));
         if (options.format === "json") {
-          return { ok: true, event };
+          return withMutationMetadata({ ok: true, event }, serviceEventScope(options, event.id), [
+            { action: "add_service_event", eventId: event.id, itemId: event.itemId }
+          ]);
         }
         return `Service event added: ${event.id} ${event.title} (${event.kind})`;
       });
@@ -479,12 +652,25 @@ export function createProgram(): Command {
     .description("Soft delete a service event")
     .argument("<eventId>", "Service event ID")
     .option("--events-store <path>", "Service event metadata store path", defaultServiceEventStorePath())
+    .option("--dry-run", "Preview the delete without saving")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text or json", "text")
-    .action(async (eventId: string, options: ServiceEventStoreOptions & { format: string }) => {
-      await runSimpleAction(options.format, "SERVICE_EVENT_COMMAND_FAILED", async () => {
+    .action(async (eventId: string, options: ServiceEventStoreOptions & ArtifactOptions & { dryRun?: boolean; format: string }) => {
+      await runSimpleAction(options, "SERVICE_EVENT_COMMAND_FAILED", async () => {
+        if (options.dryRun === true) {
+          const result = mutationPlan("service-event.delete", serviceEventScope(options, eventId), [
+            { action: "delete_service_event", eventId }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: delete service event ${eventId}`;
+        }
         const event = await createServiceEventService(options).delete(eventId);
         if (options.format === "json") {
-          return { ok: true, event };
+          return withMutationMetadata({ ok: true, event }, serviceEventScope(options, event.id), [
+            { action: "delete_service_event", eventId: event.id }
+          ]);
         }
         return `Service event deleted: ${event.id}`;
       });
@@ -534,12 +720,29 @@ export function createProgram(): Command {
     .option("--documents-store <path>", "Document metadata store path", defaultDocumentStorePath())
     .option("--attachments-dir <path>", "Attachment storage directory", defaultAttachmentsDir())
     .option("--events-store <path>", "Service event metadata store path", defaultServiceEventStorePath())
+    .option("--dry-run", "Preview the export without writing the evidence folder")
+    .option("--artifact-dir <dir>", "Write a compact JSON run receipt to this directory")
     .option("--format <format>", "Output format: text, json, or telegram", "text")
     .action(async (options: EvidencePackCommandOptions) => {
-      await runSimpleAction(options.format, "EXPORT_COMMAND_FAILED", async () => {
+      await runSimpleAction(options, "EXPORT_COMMAND_FAILED", async () => {
         const item = await createItemService(options).detail(options.item);
         const documents = await createDocumentService(options).list({ itemId: item.id, status: "all" });
         const serviceEvents = await createServiceEventService(options).list({ itemId: item.id, status: "all" });
+        if (options.dryRun === true) {
+          const result = mutationPlan("export.evidence-pack", evidencePackScope(options, item.id), [
+            {
+              action: "export_evidence_pack",
+              itemId: item.id,
+              documentCount: documents.length,
+              serviceEventCount: serviceEvents.length,
+              outputDir: options.output
+            }
+          ]);
+          if (options.format === "json") {
+            return result;
+          }
+          return `Dry run: export evidence pack ${item.id} -> ${options.output}`;
+        }
         const result = await exportEvidencePack({
           item,
           documents,
@@ -549,7 +752,9 @@ export function createProgram(): Command {
           outputDir: options.output
         });
         if (options.format === "json") {
-          return { ok: true, result };
+          return withMutationMetadata({ ok: true, result }, evidencePackScope(options, item.id), [
+            { action: "export_evidence_pack", itemId: item.id, manifestPath: result.manifestPath }
+          ]);
         }
         if (options.format === "telegram") {
           return formatEvidencePackForTelegram(result);
@@ -716,12 +921,18 @@ interface ItemCommandOptions {
   warrantyEnd?: string;
   warrantyMonths?: string;
   notes?: string;
+  dryRun?: boolean;
+  artifactDir?: string;
   format: string;
 }
 
 interface ItemStoreOptions {
   db?: string;
   store: string;
+}
+
+interface ArtifactOptions {
+  artifactDir?: string;
 }
 
 function createItemService(options: ItemStoreOptions): ItemService {
@@ -742,6 +953,8 @@ interface DocumentCommandOptions extends DocumentStoreOptions {
   kind: string;
   title?: string;
   notes?: string;
+  dryRun?: boolean;
+  artifactDir?: string;
   format: string;
 }
 
@@ -763,6 +976,8 @@ interface ServiceEventCommandOptions extends ServiceEventStoreOptions {
   occurredOn?: string;
   dueOn?: string;
   notes?: string;
+  dryRun?: boolean;
+  artifactDir?: string;
   format: string;
 }
 
@@ -777,6 +992,8 @@ interface EvidencePackCommandOptions extends ItemStoreOptions, DocumentStoreOpti
   output: string;
   within: string;
   asOf: string;
+  dryRun?: boolean;
+  artifactDir?: string;
   format: string;
 }
 
@@ -830,15 +1047,77 @@ function itemPatchFromOptions(options: ItemCommandOptions): ItemPatch {
   return Object.fromEntries(Object.entries(itemInputFromOptions(options)).filter(([, value]) => value !== undefined)) as ItemPatch;
 }
 
-async function runItemAction(format: string, action: () => Promise<string | object>): Promise<void> {
+function mutationPlan(command: string, scope: Record<string, unknown>, plannedOperations: Array<Record<string, unknown>>, warnings: string[] = []): Record<string, unknown> {
+  return {
+    ok: true,
+    dryRun: true,
+    command,
+    scope,
+    plannedOperations,
+    sideEffects: [],
+    warnings
+  };
+}
+
+function withMutationMetadata<T extends Record<string, unknown>>(
+  result: T,
+  scope: Record<string, unknown>,
+  sideEffects: Array<Record<string, unknown>>,
+  warnings: string[] = []
+): T & { scope: Record<string, unknown>; sideEffects: Array<Record<string, unknown>>; warnings: string[] } {
+  return {
+    ...result,
+    scope,
+    sideEffects,
+    warnings
+  };
+}
+
+function itemScope(options: ItemStoreOptions, itemId?: string): Record<string, unknown> {
+  return {
+    storage: options.db === undefined ? "json-file" : "sqlite",
+    db: options.db,
+    store: options.db === undefined ? options.store : undefined,
+    itemId
+  };
+}
+
+function documentScope(options: DocumentStoreOptions, documentId?: string): Record<string, unknown> {
+  return {
+    documentsStore: options.documentsStore,
+    attachmentsDir: options.attachmentsDir,
+    documentId
+  };
+}
+
+function serviceEventScope(options: ServiceEventStoreOptions, eventId?: string): Record<string, unknown> {
+  return {
+    eventsStore: options.eventsStore,
+    eventId
+  };
+}
+
+function evidencePackScope(options: EvidencePackCommandOptions, itemId?: string): Record<string, unknown> {
+  return {
+    ...itemScope(options, itemId),
+    documentsStore: options.documentsStore,
+    attachmentsDir: options.attachmentsDir,
+    eventsStore: options.eventsStore,
+    outputDir: options.output
+  };
+}
+
+async function runItemAction(options: string | ({ format: string } & ArtifactOptions), action: () => Promise<string | object>): Promise<void> {
+  const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(result));
+    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const payload = itemErrorPayload(error);
     process.exitCode = payload.error.code === "AMBIGUOUS_ITEM" ? 2 : 1;
+    const result = await maybeAttachArtifactPath(options, payload);
     if (format === "json") {
-      console.log(JSON.stringify(payload));
+      console.log(JSON.stringify(result));
       return;
     }
     console.log(`${payload.error.code}: ${payload.error.message}`);
@@ -875,14 +1154,16 @@ function isTargetResolutionError(error: unknown): error is TargetResolutionError
   return error instanceof Error && "code" in error && "candidates" in error;
 }
 
-async function runDocumentAction(format: string, action: () => Promise<string | object>): Promise<void> {
+async function runDocumentAction(options: string | ({ format: string } & ArtifactOptions), action: () => Promise<string | object>): Promise<void> {
+  const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(result));
+    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const payload = documentErrorPayload(error);
     process.exitCode = 1;
-    console.log(format === "json" ? JSON.stringify(payload) : `${payload.error.code}: ${payload.error.message}`);
+    const result = await maybeAttachArtifactPath(options, payload);
+    console.log(format === "json" ? JSON.stringify(result) : `${payload.error.code}: ${payload.error.message}`);
   }
 }
 
@@ -892,16 +1173,44 @@ function documentErrorPayload(error: unknown): { ok: false; error: { code: strin
   return { ok: false, error: { code, message } };
 }
 
-async function runSimpleAction(format: string, fallbackCode: string, action: () => Promise<string | object>): Promise<void> {
+async function runSimpleAction(options: string | ({ format: string } & ArtifactOptions), fallbackCode: string, action: () => Promise<string | object>): Promise<void> {
+  const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(result));
+    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const code = error instanceof Error && "code" in error ? String(error.code) : fallbackCode;
     const message = error instanceof Error ? error.message : "Unexpected command failure.";
+    const payload = { ok: false, error: { code, message } };
     process.exitCode = 1;
-    console.log(format === "json" ? JSON.stringify({ ok: false, error: { code, message } }) : `${code}: ${message}`);
+    const result = await maybeAttachArtifactPath(options, payload);
+    console.log(format === "json" ? JSON.stringify(result) : `${code}: ${message}`);
   }
+}
+
+function getOutputFormat(options: string | { format: string }): string {
+  return typeof options === "string" ? options : options.format;
+}
+
+async function maybeAttachArtifactPath<T extends string | object>(options: string | ArtifactOptions, result: T): Promise<T | (T & { artifactPath: string })> {
+  if (typeof options === "string" || options.artifactDir === undefined || typeof result === "string") {
+    return result;
+  }
+  const artifactPath = await writeRunArtifact(options.artifactDir, result);
+  return { ...(result as object), artifactPath } as T & { artifactPath: string };
+}
+
+async function writeRunArtifact(artifactDir: string, result: object): Promise<string> {
+  await mkdir(artifactDir, { recursive: true });
+  const now = new Date().toISOString();
+  const filename = `inventory-run-${now.replace(/[:.]/g, "-")}.json`;
+  const artifactPath = join(artifactDir, filename);
+  await writeFile(
+    artifactPath,
+    `${JSON.stringify({ app: "inventory-control", version: cliVersion, createdAt: now, result }, null, 2)}\n`,
+    "utf8"
+  );
+  return artifactPath;
 }
 
 function parseDurationDays(duration: string): number {
