@@ -19,6 +19,7 @@ Agent-native personal inventory control app. The MVP is a TypeScript CLI intende
 - Service timeline events and deterministic due reminder output.
 - Evidence-pack export for warranty claims or resale handoff.
 - Agent-first CLI contracts: machine-readable capabilities, mutation dry-runs, typed JSON errors, explicit scope/side-effect metadata, and optional run receipts via `--artifact-dir`.
+- Telegram/OpenClaw rich delivery via `--format rich-json`; the response keeps the normal result in `data` and adds `richMessage.fallbackText` plus `richMessage.presentation` for delivery adapters.
 - OpenClaw skill wrapper for Telegram `/inventory` and natural-language chat workflows.
 
 ## Telegram Slash Command Examples
@@ -147,6 +148,7 @@ npm test
 node dist/cli/index.js health
 node dist/cli/index.js health --format json
 node dist/cli/index.js capabilities --format json
+node dist/cli/index.js item add --name "MacBook Pro" --category laptop --format rich-json
 node dist/cli/index.js chat parse "記低 MacBook Pro，2026-05-30 買，AppleCare 到 2029-05-30，放書房" --format json
 node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --format json
 node dist/cli/index.js chat confirm --draft-json '{"kind":"draft","draft":{"name":"MacBook Pro","category":"laptop","needsConfirmation":true,"sourceText":"...","commandArgs":[]}}' --dry-run --format json

@@ -25,6 +25,25 @@ import { validateItemDraft } from "../domain/item.js";
 import { calculateWarrantyState } from "../domain/warranty.js";
 
 export const cliVersion = "0.1.0";
+type RichMessage = {
+  schemaVersion: 1;
+  channel: "telegram";
+  title: string;
+  tone: "info" | "success" | "warning" | "danger";
+  fallbackText: string;
+  presentation: {
+    title: string;
+    tone: "info" | "success" | "warning" | "danger";
+    blocks: Array<
+      | { type: "text"; text: string }
+      | { type: "section"; fields: Array<{ label: string; value: string }> }
+    >;
+  };
+  blocks: Array<
+    | { type: "section"; text: string }
+    | { type: "fields"; fields: Array<{ label: string; value: string }> }
+  >;
+};
 
 export function createProgram(): Command {
   const program = new Command();
@@ -39,6 +58,15 @@ export function createProgram(): Command {
     .description("Check that the inventory CLI is available")
     .option("--format <format>", "Output format: text or json", "text")
     .action((options: { format: string }) => {
+      if (options.format === "rich-json") {
+        console.log(JSON.stringify(toRichJson(
+          { ok: true, app: "inventory-control", version: cliVersion },
+          "Inventory health",
+          `inventory-control ${cliVersion} ok`,
+          "success"
+        )));
+        return;
+      }
       if (options.format === "json") {
         console.log(JSON.stringify({ ok: true, app: "inventory-control", version: cliVersion }));
         return;
@@ -56,9 +84,10 @@ export function createProgram(): Command {
         ok: true,
         app: "inventory-control",
         version: cliVersion,
-        formats: ["text", "json"],
+        formats: ["text", "json", "rich-json"],
         guarantees: {
           structuredJson: true,
+          richMessages: true,
           typedErrors: true,
           dryRun: true,
           runArtifacts: true,
@@ -85,6 +114,10 @@ export function createProgram(): Command {
         ]
       };
 
+      if (options.format === "rich-json") {
+        console.log(JSON.stringify(toRichJson(capabilities, "Inventory", `inventory-control ${cliVersion}: rich Telegram messages supported`)));
+        return;
+      }
       if (options.format === "json") {
         console.log(JSON.stringify(capabilities));
         return;
@@ -102,6 +135,10 @@ export function createProgram(): Command {
     .option("--format <format>", "Output format: text or json", "text")
     .action((textParts: string[], options: { format: string }) => {
       const result = parseChatItem(textParts.join(" "));
+      if (options.format === "rich-json") {
+        console.log(JSON.stringify(toRichJson(result, "Inventory draft", formatChatParseText(result))));
+        return;
+      }
       if (options.format === "json") {
         console.log(JSON.stringify(result));
         return;
@@ -126,7 +163,7 @@ export function createProgram(): Command {
           ? await service.list({ status })
           : await service.search(intent.query, { status });
         const result = { ...intent, status, items };
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return result;
         }
         return formatChatItemsText(intent, items);
@@ -146,7 +183,7 @@ export function createProgram(): Command {
       await runItemAction(options, async () => {
         const intent = parseChatItemMutationIntent(textParts.join(" "));
         if (intent.kind === "needs_clarification") {
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return intent;
           }
           return `Need clarification: ${intent.missing.join(", ")}`;
@@ -158,7 +195,7 @@ export function createProgram(): Command {
           const result = mutationPlan("chat.mutate", itemScope(options, target.id), [
             { action: intent.action, targetId: target.id, patch: "patch" in intent ? intent.patch : undefined }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: ${intent.action} ${target.id} ${target.name}`;
@@ -169,7 +206,7 @@ export function createProgram(): Command {
           itemScope(options, item.id),
           [{ action: intent.action, targetId: item.id }]
         );
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return result;
         }
         return `Item ${intent.action}: ${item.id} ${item.name}`;
@@ -192,7 +229,7 @@ export function createProgram(): Command {
           const result = mutationPlan("chat.confirm", itemScope(options), [
             { action: "add_item", item: chatDraftToItemInput(draft) }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: confirm ${draft.name} (${draft.category})`;
@@ -203,7 +240,7 @@ export function createProgram(): Command {
           itemScope(options, saved.id),
           [{ action: "add_item", itemId: saved.id }]
         );
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return result;
         }
         return `Item confirmed: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
@@ -240,14 +277,14 @@ export function createProgram(): Command {
         if (options.dryRun === true) {
           const draft = validateItemDraft(itemInputFromOptions(options));
           const result = mutationPlan("item.add", itemScope(options), [{ action: "add_item", item: draft }]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: add ${draft.name} (${draft.category})`;
         }
         const service = createItemService(options);
         const saved = await service.add(itemInputFromOptions(options));
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "add_item", itemId: saved.id }]);
         }
         return `Item added: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
@@ -265,7 +302,7 @@ export function createProgram(): Command {
       await runItemAction(options.format, async () => {
         const service = createItemService(options);
         const items = await service.list({ status: options.status as never });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return { ok: true, items };
         }
         return items.length === 0
@@ -285,7 +322,7 @@ export function createProgram(): Command {
       await runItemAction(options.format, async () => {
         const service = createItemService(options);
         const saved = await service.detail(target);
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return { ok: true, item: saved };
         }
         return `${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
@@ -324,13 +361,13 @@ export function createProgram(): Command {
           const saved = await service.detail(target);
           const patch = itemPatchFromOptions(options);
           const result = mutationPlan("item.edit", itemScope(options, saved.id), [{ action: "edit_item", targetId: saved.id, patch }]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: edit ${saved.id} ${saved.name}`;
         }
         const saved = await service.edit(target, itemPatchFromOptions(options));
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "edit_item", targetId: saved.id }]);
         }
         return `Item updated: ${saved.id} ${saved.name} (${saved.category}, ${saved.status})`;
@@ -352,13 +389,13 @@ export function createProgram(): Command {
         if (options.dryRun === true) {
           const saved = await service.detail(target);
           const result = mutationPlan("item.delete", itemScope(options, saved.id), [{ action: "delete_item", targetId: saved.id }]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: delete ${saved.id} ${saved.name}`;
         }
         const saved = await service.delete(target);
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "delete_item", targetId: saved.id }]);
         }
         return `Item deleted: ${saved.id} ${saved.name}`;
@@ -380,13 +417,13 @@ export function createProgram(): Command {
         if (options.dryRun === true) {
           const saved = await service.detail(target);
           const result = mutationPlan("item.restore", itemScope(options, saved.id), [{ action: "restore_item", targetId: saved.id }]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: restore ${saved.id} ${saved.name}`;
         }
         const saved = await service.restore(target);
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, item: saved }, itemScope(options, saved.id), [{ action: "restore_item", targetId: saved.id }]);
         }
         return `Item restored: ${saved.id} ${saved.name}`;
@@ -456,6 +493,15 @@ export function createProgram(): Command {
           deletedAt: options.deletedAt
         });
 
+        if (options.format === "rich-json") {
+          console.log(JSON.stringify(toRichJson(
+            { ok: true, item: draft },
+            "Inventory validation",
+            `Item draft valid: ${draft.name} (${draft.category}, ${draft.status})`,
+            "success"
+          )));
+          return;
+        }
         if (options.format === "json") {
           console.log(JSON.stringify({ ok: true, item: draft }));
           return;
@@ -486,14 +532,14 @@ export function createProgram(): Command {
           const result = mutationPlan("document.attach", documentScope(options), [
             { action: "attach_document", itemId: options.item, sourcePath: options.path, kind: options.kind }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: attach ${options.kind} -> ${options.item}`;
         }
         const service = createDocumentService(options);
         const saved = await service.attach(documentInputFromOptions(options));
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, document: saved }, documentScope(options, saved.id), [
             { action: "attach_document", documentId: saved.id, itemId: saved.itemId }
           ]);
@@ -514,7 +560,7 @@ export function createProgram(): Command {
       await runDocumentAction(options.format, async () => {
         const service = createDocumentService(options);
         const documents = await service.list({ itemId: options.item, status: options.status as never });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return { ok: true, documents };
         }
         return documents.length === 0
@@ -538,14 +584,14 @@ export function createProgram(): Command {
           const result = mutationPlan("document.delete", documentScope(options, documentId), [
             { action: "delete_document", documentId }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: delete document ${documentId}`;
         }
         const service = createDocumentService(options);
         const deleted = await service.delete(documentId);
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, document: deleted }, documentScope(options, deleted.id), [
             { action: "delete_document", documentId: deleted.id }
           ]);
@@ -574,7 +620,7 @@ export function createProgram(): Command {
             { action: "attach_document", itemId: options.item, sourcePath: options.path, kind: options.kind },
             { action: "create_ocr_draft", provider: "noop" }
           ], ["OCR provider is not configured for this draft."]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: ingest draft ${options.kind} -> ${options.item}`;
@@ -582,7 +628,7 @@ export function createProgram(): Command {
         const service = createDocumentService(options);
         const saved = await service.attach(documentInputFromOptions(options));
         const draft = await createDocumentIngestDraft({ document: saved, provider: new NoopOcrProvider() });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, document: saved, draft }, documentScope(options, saved.id), [
             { action: "attach_document", documentId: saved.id, itemId: saved.itemId },
             { action: "create_ocr_draft", documentId: saved.id, provider: "noop" }
@@ -613,13 +659,13 @@ export function createProgram(): Command {
           const result = mutationPlan("service-event.add", serviceEventScope(options), [
             { action: "add_service_event", event: serviceEventInputFromOptions(options) }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: add service event ${options.title} -> ${options.item}`;
         }
         const event = await createServiceEventService(options).add(serviceEventInputFromOptions(options));
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, event }, serviceEventScope(options, event.id), [
             { action: "add_service_event", eventId: event.id, itemId: event.itemId }
           ]);
@@ -638,7 +684,7 @@ export function createProgram(): Command {
     .action(async (options: ServiceEventStoreOptions & { item?: string; status: string; format: string }) => {
       await runSimpleAction(options.format, "SERVICE_EVENT_COMMAND_FAILED", async () => {
         const events = await createServiceEventService(options).list({ itemId: options.item, status: options.status as never });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return { ok: true, events };
         }
         return events.length === 0
@@ -661,13 +707,13 @@ export function createProgram(): Command {
           const result = mutationPlan("service-event.delete", serviceEventScope(options, eventId), [
             { action: "delete_service_event", eventId }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: delete service event ${eventId}`;
         }
         const event = await createServiceEventService(options).delete(eventId);
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, event }, serviceEventScope(options, event.id), [
             { action: "delete_service_event", eventId: event.id }
           ]);
@@ -697,7 +743,7 @@ export function createProgram(): Command {
           asOf: options.asOf,
           withinDays: parseDurationDays(options.within)
         });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return { ok: true, reminders };
         }
         return reminders.length === 0
@@ -738,7 +784,7 @@ export function createProgram(): Command {
               outputDir: options.output
             }
           ]);
-          if (options.format === "json") {
+          if (isStructuredFormat(options.format)) {
             return result;
           }
           return `Dry run: export evidence pack ${item.id} -> ${options.output}`;
@@ -751,7 +797,7 @@ export function createProgram(): Command {
           reminderWithinDays: parseDurationDays(options.within),
           outputDir: options.output
         });
-        if (options.format === "json") {
+        if (isStructuredFormat(options.format)) {
           return withMutationMetadata({ ok: true, result }, evidencePackScope(options, item.id), [
             { action: "export_evidence_pack", itemId: item.id, manifestPath: result.manifestPath }
           ]);
@@ -791,6 +837,15 @@ export function createProgram(): Command {
           expiringSoonDays: Number(options.expiringWithinDays)
         });
 
+        if (options.format === "rich-json") {
+          const endDateText = result.effectiveEndDate === undefined ? "unknown end date" : `ends ${result.effectiveEndDate}`;
+          console.log(JSON.stringify(toRichJson(
+            { ok: true, result },
+            "Warranty",
+            `Warranty: ${result.state} (${endDateText})`
+          )));
+          return;
+        }
         if (options.format === "json") {
           console.log(JSON.stringify({ ok: true, result }));
           return;
@@ -1111,11 +1166,15 @@ async function runItemAction(options: string | ({ format: string } & ArtifactOpt
   const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
+    console.log(renderActionResult(format, await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const payload = itemErrorPayload(error);
     process.exitCode = payload.error.code === "AMBIGUOUS_ITEM" ? 2 : 1;
     const result = await maybeAttachArtifactPath(options, payload);
+    if (format === "rich-json") {
+      console.log(JSON.stringify(toRichJson(result, "Inventory error", `${payload.error.code}: ${payload.error.message}`, "danger")));
+      return;
+    }
     if (format === "json") {
       console.log(JSON.stringify(result));
       return;
@@ -1158,12 +1217,20 @@ async function runDocumentAction(options: string | ({ format: string } & Artifac
   const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
+    console.log(renderActionResult(format, await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const payload = documentErrorPayload(error);
     process.exitCode = 1;
     const result = await maybeAttachArtifactPath(options, payload);
-    console.log(format === "json" ? JSON.stringify(result) : `${payload.error.code}: ${payload.error.message}`);
+    if (format === "rich-json") {
+      console.log(JSON.stringify(toRichJson(result, "Inventory error", `${payload.error.code}: ${payload.error.message}`, "danger")));
+      return;
+    }
+    if (format === "json") {
+      console.log(JSON.stringify(result));
+      return;
+    }
+    console.log(`${payload.error.code}: ${payload.error.message}`);
   }
 }
 
@@ -1177,19 +1244,125 @@ async function runSimpleAction(options: string | ({ format: string } & ArtifactO
   const format = getOutputFormat(options);
   try {
     const result = await action();
-    console.log(typeof result === "string" ? result : JSON.stringify(await maybeAttachArtifactPath(options, result)));
+    console.log(renderActionResult(format, await maybeAttachArtifactPath(options, result)));
   } catch (error) {
     const code = error instanceof Error && "code" in error ? String(error.code) : fallbackCode;
     const message = error instanceof Error ? error.message : "Unexpected command failure.";
     const payload = { ok: false, error: { code, message } };
     process.exitCode = 1;
     const result = await maybeAttachArtifactPath(options, payload);
-    console.log(format === "json" ? JSON.stringify(result) : `${code}: ${message}`);
+    if (format === "rich-json") {
+      console.log(JSON.stringify(toRichJson(result, "Inventory error", `${code}: ${message}`, "danger")));
+      return;
+    }
+    if (format === "json") {
+      console.log(JSON.stringify(result));
+      return;
+    }
+    console.log(`${code}: ${message}`);
   }
 }
 
 function getOutputFormat(options: string | { format: string }): string {
   return typeof options === "string" ? options : options.format;
+}
+
+function isStructuredFormat(format: string): boolean {
+  return format === "json" || format === "rich-json";
+}
+
+function renderActionResult(format: string, result: string | object): string {
+  if (typeof result === "string") {
+    return result;
+  }
+  if (format === "rich-json") {
+    return JSON.stringify(toRichJson(result, "Inventory", summarizeObjectForTelegram(result)));
+  }
+  return JSON.stringify(result);
+}
+
+function toRichJson(data: unknown, title: string, fallbackText: string, tone: RichMessage["tone"] = "info"): { ok: boolean; data: unknown; richMessage: RichMessage } {
+  const ok = !(typeof data === "object" && data !== null && "ok" in data && (data as { ok?: unknown }).ok === false);
+  return {
+    ok,
+    data,
+    richMessage: buildRichMessage(title, fallbackText, tone)
+  };
+}
+
+function buildRichMessage(title: string, fallbackText: string, tone: RichMessage["tone"] = "info"): RichMessage {
+  const lines = fallbackText.split("\n").filter((line) => line.trim().length > 0);
+  const fields = lines
+    .filter((line) => line.includes(":"))
+    .slice(0, 8)
+    .map((line) => {
+      const [label, ...rest] = line.split(":");
+      return { label: label.trim(), value: rest.join(":").trim() };
+    })
+    .filter((field) => field.label.length > 0 && field.value.length > 0);
+  return {
+    schemaVersion: 1,
+    channel: "telegram",
+    title,
+    tone,
+    fallbackText: formatTelegramHtmlFallback(title, lines, fallbackText),
+    presentation: {
+      title,
+      tone,
+      blocks: [
+        { type: "text", text: lines.slice(0, 12).join("\n") || fallbackText },
+        ...(fields.length > 0 ? [{ type: "section" as const, fields }] : [])
+      ]
+    },
+    blocks: [
+      { type: "section", text: lines.slice(0, 12).join("\n") || fallbackText },
+      ...(fields.length > 0 ? [{ type: "fields" as const, fields }] : [])
+    ]
+  };
+}
+
+function formatTelegramHtmlFallback(title: string, lines: string[], fallbackText: string): string {
+  const body = (lines.length > 0 ? lines : [fallbackText]).slice(0, 24).map(formatTelegramHtmlLine);
+  return [`<b>${escapeTelegramHtml(title)}</b>`, ...body].join("\n");
+}
+
+function formatTelegramHtmlLine(line: string): string {
+  const separator = line.indexOf(":");
+  if (separator > 0 && separator <= 32) {
+    const label = line.slice(0, separator).trim();
+    const value = line.slice(separator + 1).trim();
+    if (label.length > 0 && value.length > 0) {
+      return `<b>${escapeTelegramHtml(label)}:</b> ${escapeTelegramHtml(value)}`;
+    }
+  }
+  return escapeTelegramHtml(line);
+}
+
+function escapeTelegramHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function summarizeObjectForTelegram(result: object): string {
+  if ("item" in result && result.item && typeof result.item === "object") {
+    const item = result.item as { id?: string; name?: string; category?: string; status?: string };
+    return [
+      item.name ? `Item: ${item.name}` : undefined,
+      item.id ? `ID: ${item.id}` : undefined,
+      item.category ? `Category: ${item.category}` : undefined,
+      item.status ? `Status: ${item.status}` : undefined
+    ].filter(Boolean).join("\n");
+  }
+  if ("command" in result) {
+    return `Command: ${String(result.command)}`;
+  }
+  if ("error" in result && result.error && typeof result.error === "object") {
+    const error = result.error as { code?: string; message?: string };
+    return `${error.code ?? "ERROR"}: ${error.message ?? "Command failed"}`;
+  }
+  return "Inventory result ready";
 }
 
 async function maybeAttachArtifactPath<T extends string | object>(options: string | ArtifactOptions, result: T): Promise<T | (T & { artifactPath: string })> {

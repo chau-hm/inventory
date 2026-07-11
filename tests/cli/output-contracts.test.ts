@@ -177,6 +177,7 @@ describe("CLI output contracts", () => {
       app: "inventory-control",
       guarantees: {
         structuredJson: true,
+        richMessages: true,
         typedErrors: true,
         dryRun: true,
         explicitScopeInJson: true
@@ -185,6 +186,50 @@ describe("CLI output contracts", () => {
         expect.objectContaining({ path: "item add", mutates: true, dryRun: true }),
         expect.objectContaining({ path: "export evidence-pack", mutates: true, dryRun: true })
       ])
+    });
+  });
+
+  it("returns Telegram rich-message payloads with rich-json output", async () => {
+    await run(
+      "item",
+      "add",
+      "--store",
+      storePath,
+      "--name",
+      "MacBook Pro",
+      "--category",
+      "laptop",
+      "--format",
+      "rich-json"
+    );
+
+    expect(JSON.parse(output.at(-1) ?? "{}")).toMatchObject({
+      ok: true,
+      data: {
+        ok: true,
+        item: {
+          name: "MacBook Pro",
+          category: "laptop"
+        }
+      },
+      richMessage: {
+        schemaVersion: 1,
+        channel: "telegram",
+        title: "Inventory",
+        fallbackText: expect.stringContaining("MacBook Pro"),
+        presentation: {
+          title: "Inventory",
+          tone: "info",
+          blocks: expect.arrayContaining([
+            expect.objectContaining({ type: "text" }),
+            expect.objectContaining({ type: "section" })
+          ])
+        },
+        blocks: expect.arrayContaining([
+          expect.objectContaining({ type: "section" }),
+          expect.objectContaining({ type: "fields" })
+        ])
+      }
     });
   });
 

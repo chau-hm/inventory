@@ -23,10 +23,12 @@ The deployed OpenClaw copy is synced to:
 - Use the built CLI from this repo: `node dist/cli/index.js ...`.
 - Run from `/Users/openclaw/Desktop/VirtualBuddyShared/VirtualBuddyShared/repo/inventory`.
 - Prefer JSON output for internal reads and concise Traditional Chinese/Cantonese summaries for users.
+- Use `--format rich-json` when a Telegram/OpenClaw delivery adapter needs a structured rich message. The response wraps the normal JSON result in `data` and includes `richMessage` with fallback text, `presentation`, and legacy structured blocks.
 - Preserve stable IDs in responses because later edit/delete/restore flows depend on them.
 - Do not mutate ambiguous targets. List candidates and ask one concise clarification.
 - Treat `document ingest-draft` as an OCR draft contract only; Apple Vision is not wired in this slice.
 - Evidence pack exports remain local folders and report the output/manifest paths.
+- Existing `--format json` output shapes remain stable; rich-message metadata is additive through `rich-json`.
 
 ## Acceptance
 
@@ -34,3 +36,5 @@ The deployed OpenClaw copy is synced to:
 - Repo contains the canonical skill file at `skills/inventory/SKILL.md`.
 - Skill documents common item, document, service-event, reminder, export, and preflight commands.
 - Vault TODO Phase 6 marks the wrapper complete.
+- `capabilities --format json` advertises `rich-json` and `guarantees.richMessages`.
+- `item add ... --format rich-json` returns `{ ok, data, richMessage }` with the saved item preserved under `data`; `richMessage.presentation` can be passed to OpenClaw `message.send`.
